@@ -1,0 +1,15 @@
+#logo-1edu{
+    height: 40px;
+    width: auto;
+}
+#login-btn{
+    border-radius: 25px;
+    padding: 8px 35px;
+    background-color: white;
+    background-color: #5a6be6;
+    transition: 0.2s;
+    margin-left: 30px;
+}
+#login-btn:hover{
+    background-color: transparent;
+}
