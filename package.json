@@ -18,6 +18,12 @@
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "babel-eslint": "^10.1.0",
+    "nodemon": "^2.0.15",
+    "standard": "^16.0.4"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "global": []
   }
 }

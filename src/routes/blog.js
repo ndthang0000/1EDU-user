@@ -1,7 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const BlogController=require('../controllers/BlogController')
 
+const { blogController } = require('../controllers')
 
-router.get('/',BlogController.index)
-module.exports=router
+router.get('/', blogController.home)
+
+module.exports = router
