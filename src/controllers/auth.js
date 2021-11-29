@@ -1,5 +1,6 @@
 const login = () => {
-  console.log('Login!')
+  let i = 1;
+  console.log('Login!', i)
 }
 
 module.exports = { login }
