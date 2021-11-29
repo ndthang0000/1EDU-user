@@ -6,7 +6,13 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
+    "format": "standard --fix \"src/**/*.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "lint-staged": {
+    "./src/**/*.{js}": [
+      "yarn format"
+    ]
   },
   "author": "",
   "license": "ISC",
@@ -20,11 +26,16 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.2",
     "nodemon": "^2.0.15",
     "standard": "^16.0.4"
   },
   "standard": {
     "parser": "babel-eslint",
-    "global": []
+    "global": [],
+    "ignore": [
+      "./public"
+    ]
   }
 }
