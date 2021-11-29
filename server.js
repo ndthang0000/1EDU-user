@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const path = require('path');
 const route=require('./src/routes/route')
-const database=require('./src/database/index')
+const connectDatabase=require('./src/helpers/index')
 require('dotenv').config()
 
 app.use(express.urlencoded({ 
@@ -17,7 +17,7 @@ app.set('views', path.join(__dirname, '/src/views'));
 
 
 
-database.connect()
+connectDatabase.connect()
 route(app)
 
 app.listen(3000)

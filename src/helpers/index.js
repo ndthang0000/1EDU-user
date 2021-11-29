@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-connect=async()=>{
+connectDatabase=async()=>{
     try{
         await mongoose.connect(process.env.DB_URL,{
             useNewUrlParser: true, 
@@ -10,4 +10,4 @@ connect=async()=>{
         console.log(err)
     }
 }
-module.exports={connect}
+module.exports={connectDatabase}
