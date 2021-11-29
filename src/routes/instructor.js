@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const InstructorController=require('../controller/InstructorController')
+const InstructorController=require('../controllers/InstructorController')
 
 
 router.get('/',InstructorController.index)

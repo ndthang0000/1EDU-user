@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path');
-const route=require('./src/route/route')
+const route=require('./src/routes/route')
 const database=require('./src/database/index')
 require('dotenv').config()
 
