@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const CourseController = require('../controllers/CourseController')
+const {courseController} = require('../controllers')
 
-router.get('/', CourseController.index)
+router.get('/', courseController.home)
 module.exports = router
 
 // Folders

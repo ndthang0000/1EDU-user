@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const route = require('./src/routes/route')
+const route = require('./src/routes/index')
 
 const { connectToDB } = require('./src/helpers')
 
