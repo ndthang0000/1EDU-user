@@ -15,6 +15,7 @@ Create `.env` file
 
 ```
 MONGODB_URL=YOUR_URL
+SECRET_KEY=YOUR_KEY
 ```
 
 ## Development
