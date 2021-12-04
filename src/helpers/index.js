@@ -1,5 +1,5 @@
-const connectToDB = require('./connectToDB')
+const databaseUtil = require('./database')
 
 module.exports = {
-  connectToDB
+  databaseUtil
 }
