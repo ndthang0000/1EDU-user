@@ -53,7 +53,9 @@ databaseUtil.connectDatabase().then(() => {
   route(app)
 
   // Listen
-  app.listen(3000)
+  app.listen(config.PORT, () => {
+    console.log('Server is listening on port', config.PORT)
+  })
 }).catch((error) => {
   console.log('Error', error)
 })
