@@ -8,7 +8,10 @@
     "start": "node server.js",
     "format": "standard --fix \"src/**/*.js\"",
     "prepare": "husky install",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pm2:start": "pm2 start ./ecosystem.config.js --env production ; pm2 status",
+    "pm2:reload": "pm2 reload ./ecosystem.config.js --env production ; pm2 status",
+    "pm2:stop": "pm2 stop ./ecosystem.config.js --env production ; pm2 status"
   },
   "lint-staged": {
     "./src/**/*.{js,jsx,ts,tsx}": [
@@ -18,11 +21,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "3.2.0",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.17.2",
     "mongoose": "^6.0.13",
+    "morgan": "^1.10.0",
+    "passport": "^0.5.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7"
   },
   "devDependencies": {
