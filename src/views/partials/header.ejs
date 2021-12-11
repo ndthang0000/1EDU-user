@@ -6,15 +6,39 @@
         </button>
 
         <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto" style="align-items: center;position: relative;">
                 <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
                 <li class="nav-item"><a href="/course" class="nav-link">Course</a></li>
                 <li class="nav-item"><a href="/instructor" class="nav-link">Instructor</a></li>
                 <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
-                <li class="nav-item"><a href="/teacher/61b35d7ea313d12c86ff2d3e" class="nav-link">Teach on 1EDU</a></li>
-                <li class="nav-item" style="display: flex;align-items: center;"><a href="/login" id="login-btn"  class="nav-link">LOGIN</a></li>
+                <% if(user.role==1){ %>
+                    <li  class="nav-item"><a href="/teacher/<%= user._id %>" class="nav-link">Teach on 1EDU</a></li>
+                <% }  %>
+                <% if(user){ %>
+                    <div id="avatar-img" style="width: 50px;height: 50px; border-radius: 50%;overflow: hidden;cursor: pointer;">
+                        <img src="/images/avatar.png" alt="" style="width: 100%;" >
+                    </div>
+                    <ul id="avatar-menu">
+                        <li><a href=""style="color: white;display: block;"><i class="bi bi-person" style="margin-right: 10px;"></i>Trang cá nhân</a> </li>
+                        <li> <a href="" style="color: white;display: block;"><i class="bi bi-grid-3x3-gap" style="margin-right: 10px;"></i>Quản lí khóa học</a></li>
+                        <li><a href="/auth/logout" style="color: white;display: block;"><i class="bi bi-box-arrow-right" style="margin-right: 14px;"></i>Đăng xuất</a></li>
+                        <div style="position: absolute;width: 15px;height: 15px;transform: rotate(45deg);top: -3px;right: 14px;background-color: #942ca8;"></div>
+                    </ul>
+                    <% } else { %>
+                    <li class="nav-item" style="display: flex;align-items: center;"><a href="/auth/login" id="login-btn"  class="nav-link">LOGIN</a></li>
+                <% } %>
             </ul>
         </div>
     <div>
 </nav>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const imgAvatar=document.querySelector('#avatar-img')
+        const avatarMenu=document.querySelector('#avatar-menu')
+        imgAvatar.addEventListener('click',(e)=>{
+            avatarMenu.classList.toggle('visible')
+            console.log('da vo')
+        })
+    })
+</script>

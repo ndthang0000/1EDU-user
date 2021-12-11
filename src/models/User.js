@@ -12,7 +12,13 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  name: { type: String, required: true },
+  role: { type: Number, required: true, default: 0 }, // 0 is student , 1 is teacher
+  avatar: { type: String, default: '/images/avatar.png' },
+  age: Number,
+  information: { type: String }, // belong to teacher
+  tel: String // belong to teacher
 })
 
 UserSchema.pre('save', async function (next) {

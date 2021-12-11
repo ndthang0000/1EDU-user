@@ -11,27 +11,36 @@
             <div class="row justify-content-center pb-4">
                 <div class="col-md-12 heading-section text-center ftco-animate">
                     <span class="subheading">Welcome to 1EDU</span>
-                    <h2 class="mb-4"> Course Detail</h2>
+                    <h2 class="mb-4"> Thông tin khóa học</h2>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-12">
-                    <img src="/images/work-1.jpg" alt="" style="height: auto;width: 100%;border-radius: 5px;box-shadow: 1px 2px 1px 2px rgb(240, 233, 233);">
+                    <img src="<%= course.imageUrl %>" alt="" style="height: auto;width: 100%;border-radius: 5px;box-shadow: 1px 2px 1px 2px rgb(240, 233, 233);">
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <h2 style="font-weight: 600;"><%= course.name %></h2>
-                    <p>Desciption : <%= course.des %></p>
-                    <p>Fee : <%= course.fee %></p>
-                    <p>Quantity Student : <%= course.quantityStudent %></p>
-                    
+                    <p >Fee : <span style="text-decoration: line-through;color: #444444;"><%= course.fee %></span> </p>
+                    <p >FeeDiscount : <span style="color: red;"><%= course.feeDiscount %></span> </p>
+                    <p> Quantity Student : <%= course.quantityStudent %></p>
+                    <p>Created Time : <%= formatTime(course.createdAt) %></p>
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="rating" style="font-size: 32px;color:rgb(214, 214, 35)" >
                         <span id="star-1">☆</span><span id="star-2">☆</span><span id="star-3">☆</span><span id="star-4">☆</span><span id="star-5">☆</span>
                     </div>
-                    <p>Created Time : <%= formatTime(course.createdAt) %></p>
+                    
                     <h5>Date Start : <%= formatTime(course.createdAt) %></>
                     <h5>Date End :<%= formatTime(course.createdAt) %> </h5>
+                    <a href="/teacher/<%= course.teacherId %>/course/<%= course.slug %>/edit" style="font-size: 22px;padding-top:  30px;">
+                        <i class="bi bi-pencil-fill"></i>
+                        Chỉnh sửa thông tin khóa học
+                    </a>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-12" style="margin-top: 30px;">
+                    <div style="color: black;font-weight: 550;">Desciption :</div>
+                    <p> <%= course.des %></p>
+
                 </div>
             </div>
             

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); -%>
+</head>
+<body>
+    <%- include('./partials/header',{user}); -%>
+<!-- END nav -->
+
+    <div class="hero-wrap js-fullheight" style="background-image: url('/images/bg_1.jpg');">
+    <div class="overlay"></div>
+    </div>
+
+    <section class="ftco-section ftco-no-pb ftco-no-pt">
+            <div class="login-wrap p-4 p-md-5" style="width: 500px;margin-right: auto;margin-left: auto;">
+                <h3 class="mb-4">
+                    <img src="/images/logo.png" alt="" style="width:120px;margin-right: 20px;">
+                    Login Now
+                </h3>
+                <form action="" class="signup-form" method="post">
+                <div class="form-group">
+                    <label class="label" for="email">Email</label>
+                    <input type="text" class="form-control" placeholder="Your email" name="email">
+                </div>
+                <div class="form-group">
+                    <label class="label" for="password">Password</label>
+                    <input id="password-field" type="password" class="form-control" placeholder="Password" name="password">
+                    
+                </div>
+                <div id="err-email" style="color: red;margin: 0px 20px;margin-bottom: 15px;"></div>
+                <div style="margin-left: 20px; margin-right: 10px;">
+                    <input type="checkbox" style="width: 25px;">
+                    <label for="">Ghi nhớ đăng nhập</label>
+                </div>
+                <div class="form-group d-flex justify-content-end mt-4">
+                    <button type="submit" id="btn-login">Đăng nhập</button>
+                </div>
+            </form>
+            <p class="text-center">Bạn chưa có tài khoản? <a href="#signin">Đăng ký ngay</a></p>
+        </div>
+    </section>
+
+
+
+<%- include('./partials/footer'); -%>
+
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<script src="/js/thang_custom.js"></script>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="/js/main.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const message=window.location.search.split('=')[1]
+        console.log(message)
+        if(message==='FAILED'){
+            document.querySelector('#err-email').textContent='Kiểm tra lại tài khoản và mật khẩu'
+        }
+    })
+</script>
+</body>
+</html>
