@@ -4,6 +4,7 @@ const contactController = require('./contact')
 const homeController = require('./home')
 const instructorController = require('./instructor')
 const courseController = require('./course')
+const teacherController = require('./teacher')
 
 module.exports = {
   blogController,
@@ -11,5 +12,6 @@ module.exports = {
   courseController,
   instructorController,
   homeController,
-  contactController
+  contactController,
+  teacherController
 }

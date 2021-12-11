@@ -5,6 +5,7 @@ const BlogRouter = require('./blog')
 const ContactRouter = require('./contact')
 const authRouter = require('./auth')
 const profileRouter = require('./profile')
+const TeacherRouter = require('./teacher')
 
 const { authMiddleware } = require('../middlewares')
 
@@ -16,6 +17,7 @@ function route (app) {
   app.use('/', HomeRouter)
   app.use('/auth', authRouter)
   app.use('/profile', authMiddleware.isAuthenticated, profileRouter)
+  app.use('/teacher', TeacherRouter)
 }
 
 module.exports = route
