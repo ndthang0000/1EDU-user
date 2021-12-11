@@ -1,5 +1,7 @@
-const connectToDB = require('./connectToDB')
+const databaseUtil = require('./database')
+const helper = require('./ejsHelper')
 
 module.exports = {
-  connectToDB
+  databaseUtil,
+  helper
 }

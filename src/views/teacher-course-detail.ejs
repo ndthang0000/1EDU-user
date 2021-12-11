@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); -%>
+</head>
+<body>
+    <%- include('./teachers/header'); -%>
+    
+    <section class="ftco-section bg-light" style="margin-top: 150px;">
+        <div class="container">
+            <div class="row justify-content-center pb-4">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">Welcome to 1EDU</span>
+                    <h2 class="mb-4"> Course Detail</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <img src="/images/work-1.jpg" alt="" style="height: auto;width: 100%;border-radius: 5px;box-shadow: 1px 2px 1px 2px rgb(240, 233, 233);">
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <h2 style="font-weight: 600;"><%= course.name %></h2>
+                    <p>Desciption : <%= course.des %></p>
+                    <p>Fee : <%= course.fee %></p>
+                    <p>Quantity Student : <%= course.quantityStudent %></p>
+                    
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="rating" style="font-size: 32px;color:rgb(214, 214, 35)" >
+                        <span id="star-1">☆</span><span id="star-2">☆</span><span id="star-3">☆</span><span id="star-4">☆</span><span id="star-5">☆</span>
+                    </div>
+                    <p>Created Time : <%= formatTime(course.createdAt) %></p>
+                    <h5>Date Start : <%= formatTime(course.createdAt) %></>
+                    <h5>Date End :<%= formatTime(course.createdAt) %> </h5>
+                </div>
+            </div>
+            
+        
+    </section>
+    
+
+
+
+    <%- include('./partials/footer'); -%>
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<script src="/js/thang_custom.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="/js/main.js"></script>
+
+</body>
+</html>
