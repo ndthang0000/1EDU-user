@@ -40,3 +40,16 @@
   content: "\2605";
   position: absolute;
 }
+.form-group {
+  display: flex;
+}
+.form-group label {
+  margin-right: 20px;
+}
+.form-group input {
+  border: 1px solid #ce4be8;
+  border-radius: 5px;
+  color: #888;
+  outline: none;
+  padding: 5px 10px;
+}
