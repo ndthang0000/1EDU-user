@@ -13,9 +13,9 @@ function route (app) {
   app.use('/course', CourseRouter)
   app.use('/instructor', InstructorRouter)
   app.use('/blog', BlogRouter)
-  app.use('/contact', ContactRouter)
   app.use('/', HomeRouter)
   app.use('/auth', authRouter)
+  app.use('/contact', authMiddleware.isAuthenticated, ContactRouter)
   app.use('/profile', authMiddleware.isAuthenticated, profileRouter)
   app.use('/teacher', authMiddleware.isTeacher, TeacherRouter)
 }

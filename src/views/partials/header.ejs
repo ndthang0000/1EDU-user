@@ -11,10 +11,11 @@
                 <li class="nav-item"><a href="/course" class="nav-link">Khóa học</a></li>
                 <li class="nav-item"><a href="/instructor" class="nav-link">Giáo viên</a></li>
                 <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="/contact" class="nav-link">Dạy trên 1EDU</a></li>
                 <% if(user.role==1){ %>
                     <li  class="nav-item"><a href="/teacher/<%= user._id %>" class="nav-link">Teach on 1EDU</a></li>
-                <% }  %>
+                <% } else { %>
+                    <li class="nav-item"><a href="/contact" class="nav-link">Dạy trên 1EDU</a></li>
+                    <% } %>
                 <% if(user){ %>
                     <div id="avatar-img" style="width: 50px;height: 50px; border-radius: 50%;overflow: hidden;cursor: pointer;">
                         <img src="/images/avatar.png" alt="" style="width: 100%;" >

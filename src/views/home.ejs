@@ -129,7 +129,6 @@
 </section>
 
 <%- include('./partials/course',{allCourse}); -%>
-<span style="display: none;"><%=  allCourse[0].teacherId._id %></span>
 <section class="ftco-section ftco-counter img" id="section-counter" style="background-image: url(images/bg_4.jpg);">
 <div class="overlay"></div>
 <div class="container">
@@ -569,7 +568,9 @@
                     setTimeout(()=>{
                         window.location.href=window.location.origin+'/auth/login'
                     },1200)
-
+                }
+                else{
+                    document.querySelector('#err-email').textContent='Email này đã được sử dụng ! '
                 }
             })
         })
