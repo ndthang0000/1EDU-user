@@ -48,7 +48,14 @@ databaseUtil.connectDatabase().then(() => {
   passportMiddleware.applyPassportMiddleware(passport)
   app.use(passport.initialize())
   app.use(passport.session())
-
+  app.use((req, res, next) => {
+    if (req.isAuthenticated()) {
+      res.locals.user = req.user
+    } else {
+      res.locals.user = false
+    }
+    next()
+  })
   // Routes
   route(app)
 

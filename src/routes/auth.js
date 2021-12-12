@@ -14,12 +14,12 @@ router.post('/register', passport.authenticate('register', {
 }))
 
 router.get('/login', authMiddleware.isNotAuthenticated, (req, res) => {
-  res.render('auth/login')
+  res.render('login')
 })
 
 router.post('/login', passport.authenticate('login', {
   failureRedirect: '/auth/login?res=FAILED',
-  successRedirect: '/profile/me'
+  successRedirect: '/'
 }))
 
 router.get('/logout', authMiddleware.isAuthenticated, (req, res) => {

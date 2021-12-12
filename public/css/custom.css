@@ -42,14 +42,74 @@
 }
 .form-group {
   display: flex;
+  padding: 5px 10px;
 }
 .form-group label {
   margin-right: 20px;
+  width: 150px;
+  flex: 1;
 }
-.form-group input {
+.form-group input,
+#text-area {
   border: 1px solid #ce4be8;
   border-radius: 5px;
   color: #888;
   outline: none;
   padding: 5px 10px;
+  flex: 2;
+}
+#btn-creat-course {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  background-color: #ce4be8;
+  border-radius: 10px;
+  text-align: center;
+}
+#btn-login {
+  outline: none;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  background-color: #c42be2;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.2s;
+}
+#btn-login:hover {
+  background-color: #ce4be8;
+}
+#avatar-img:hover #avatar-menu {
+  display: block;
+  opacity: 1;
+}
+#avatar-menu {
+  display: none;
+  opacity: 0;
+  transition: 0.4s;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  z-index: 9999999;
+  width: 250px;
+  padding: 15px 10px;
+  background-color: #942ca8;
+  border-radius: 10px;
+}
+#avatar-menu li {
+  list-style: none;
+  padding: 5px 15px;
+  color: white;
+  transition: 0.2s;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#avatar-menu li:hover {
+  background-color: #b23aca;
+}
+.visible {
+  display: block !important;
+  opacity: 1 !important;
 }
