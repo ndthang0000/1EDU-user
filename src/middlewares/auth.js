@@ -14,7 +14,15 @@ const isNotAuthenticated = (req, res, next) => {
   next()
 }
 
+const isTeacher = (req, res, next) => {
+  if (req.user.role === 1) {
+    return next()
+  }
+  return res.redirect('/')
+}
+
 module.exports = {
   isAuthenticated,
-  isNotAuthenticated
+  isNotAuthenticated,
+  isTeacher
 }

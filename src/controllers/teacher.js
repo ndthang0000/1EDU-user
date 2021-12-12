@@ -3,7 +3,6 @@ const { helper } = require('../helpers/')
 
 const home = async (req, res) => {
   const { id } = req.params
-  console.log(id)
   const allCourse = await CourseModel.find({ teacherId: id })
   res.render('teacher', { allCourse, formatMoney: helper.formatMoney, formatTime: helper.formatTime })
 }
@@ -44,7 +43,6 @@ const saveCreate = async (req, res) => {
 const saveEditCourse = async (req, res) => {
   const { id, slug } = req.params
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
-  console.log(req.body)
   course.fee = parseInt(req.body.fee)
   course.feeDiscount = parseInt(req.body.feeDiscount)
   course.numberLesson = parseInt(req.body.numberLesson)
