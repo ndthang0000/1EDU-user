@@ -5,7 +5,7 @@ const home = async (req, res) => {
   const { id } = req.params
   console.log(id)
   const allCourse = await CourseModel.find({ teacherId: id })
-  res.render('teacher', { allCourse, formatMoney: helper.formatMoney })
+  res.render('teacher', { allCourse, formatMoney: helper.formatMoney, formatTime: helper.formatTime })
 }
 
 const create = async (req, res) => {

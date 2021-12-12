@@ -113,3 +113,12 @@
   display: block !important;
   opacity: 1 !important;
 }
+.success-color {
+  color: #2ecc71 !important;
+}
+.info-color {
+  color: #f1c40f !important;
+}
+.err-color {
+  color: #e74c3c !important;
+}

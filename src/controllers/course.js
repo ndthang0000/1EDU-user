@@ -1,5 +1,5 @@
-// const { UserModel } = require('../models')
-
+const { CourseModel } = require('../models')
+const { helper } = require('../helpers')
 const home = async (req, res) => {
   try {
     // const newCourse = new CourseModel({
@@ -22,7 +22,8 @@ const home = async (req, res) => {
     //   tel: '0357156559'
     // })
     // await newTeacher.save()
-    res.render('course')
+    const allCourse = await CourseModel.find({}).sort({ updatedAt: -1 }).populate('teacherId').limit(9)
+    res.render('course', { allCourse, formatTime: helper.formatTime, formatMoney: helper.formatMoney })
   } catch (e) {
     console.log(e)
   }

@@ -25,15 +25,22 @@
                                 <h3><a href="/teacher/<%= name.teacherId %>/course/<%= name.slug %>/detail"><%= name.name %></a></h3>
                                 <p class="advisor">Giảng viên <span><%= user.name %></span></p>
                                 <ul class="d-flex justify-content-between">
-                                    <li style="align-self: flex-end;"><span class="flaticon-shower"> <i class="bi bi-person-check"></i></span><%= name.quantityStudent %></li>
+                                    <ul style="display: flex;flex-direction: column; ">
+                                        <li id="status-date"></li>
+                                        <input type="text" style="display: none;" value="<%= formatTime(name.startDate) %>" name="day-start">
+                                        <input type="text" style="display: none;" value="<%= formatTime(name.endDate) %>" name="day-end">
+                                        
+
+                                        <li ><span class="flaticon-shower"> <i class="bi bi-person-check"></i></span><%= name.quantityStudent %></li>
+                                    </ul>
                                     <ul style="display: flex;flex-direction: column;">
                                         <li class="price" style="text-decoration: line-through;color: #888;font-weight: 400;"><%= formatMoney(name.fee) %></li>
                                         <li style="color: red;"><%= formatMoney(name.feeDiscount) %></li>
-
                                     </ul>
                                 </ul>
                             </div>
                         </div>
+                        
                     </div>
                 <% }); %>
             </div>
@@ -62,6 +69,30 @@
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/scrollax.min.js"></script>
 <script src="/js/main.js"></script>
-
+<script>
+    const startDateEle=document.querySelectorAll('input[name="day-start"]')
+    const endDateEl=document.querySelectorAll('input[name="day-end"]')
+    const dateStatus=document.querySelectorAll('#status-date')
+    dateStatus.forEach((item,index)=>{
+        let startDate=new Date(startDateEle[index].value)
+        console.log(startDate)
+        let endDate=new Date(endDateEl[index].value)
+        console.log(endDate)
+        let today=new Date()
+        console.log(today)
+        if(today-startDate<0){
+            item.innerText='Sắp bắt đầu'
+            item.classList.add('success-color')
+        }
+        else if(today-endDate>0){
+            item.innerText='Đã kết thúc'
+            item.classList.add('err-color')
+        }
+        else{
+            item.innerText='Đang diễn ra'
+            item.classList.add('info-color')
+        }
+    })
+</script>
 </body>
 </html>

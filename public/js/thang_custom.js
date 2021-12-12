@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     })
 })
 function formatMoney(n, currency) {
-    return currency + n.toFixed(2).replace(/./g, function(c, i, a) {
-      return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-    });
-  }
+    return n.toFixed(0).replace(/./g, function(c, i, a) {
+        return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+        })+ currency;
+    }
