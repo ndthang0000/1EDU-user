@@ -7,11 +7,11 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto" style="align-items: center;position: relative;">
-                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="/course" class="nav-link">Course</a></li>
-                <li class="nav-item"><a href="/instructor" class="nav-link">Instructor</a></li>
+                <li class="nav-item"><a href="/" class="nav-link">Trang chủ</a></li>
+                <li class="nav-item"><a href="/course" class="nav-link">Khóa học</a></li>
+                <li class="nav-item"><a href="/instructor" class="nav-link">Giáo viên</a></li>
                 <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="/contact" class="nav-link">Dạy trên 1EDU</a></li>
                 <% if(user.role==1){ %>
                     <li  class="nav-item"><a href="/teacher/<%= user._id %>" class="nav-link">Teach on 1EDU</a></li>
                 <% }  %>
@@ -36,9 +36,11 @@
     document.addEventListener('DOMContentLoaded',()=>{
         const imgAvatar=document.querySelector('#avatar-img')
         const avatarMenu=document.querySelector('#avatar-menu')
-        imgAvatar.addEventListener('click',(e)=>{
-            avatarMenu.classList.toggle('visible')
-            console.log('da vo')
-        })
+        if(imgAvatar){
+            imgAvatar.addEventListener('click',(e)=>{
+                avatarMenu.classList.toggle('visible')
+                console.log('da vo')
+            })
+        }
     })
 </script>

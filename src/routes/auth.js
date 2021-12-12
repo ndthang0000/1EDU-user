@@ -8,10 +8,10 @@ router.get('/register', authMiddleware.isNotAuthenticated, (req, res) => {
   res.render('auth/register')
 })
 
-router.post('/register', passport.authenticate('register', {
-  successRedirect: '/profile/me',
-  failureRedirect: '/auth/register?res=FAILED'
-}))
+router.post('/register', (req, res) => {
+  console.log(req.body)
+  res.status(200).json({ success: true })
+})
 
 router.get('/login', authMiddleware.isNotAuthenticated, (req, res) => {
   res.render('login')

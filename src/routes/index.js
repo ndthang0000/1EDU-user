@@ -17,7 +17,7 @@ function route (app) {
   app.use('/', HomeRouter)
   app.use('/auth', authRouter)
   app.use('/profile', authMiddleware.isAuthenticated, profileRouter)
-  app.use('/teacher', TeacherRouter)
+  app.use('/teacher', authMiddleware.isTeacher, TeacherRouter)
 }
 
 module.exports = route
