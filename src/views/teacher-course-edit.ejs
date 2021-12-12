@@ -34,10 +34,12 @@
                         <div class="form-group">
                             <label for="">Tên khóa học</label>
                             <input type="text" placeholder="Tên khóa học" required="true" name="name" value="<%= course.name %>">
+                            <span style="position: absolute;top: 12px; right:5%;color:red"></span>
                         </div>
                         <div class="form-group">
                             <label for="">Học phí </label>
                             <input type="text" placeholder="Giá bán" name="fee" required="true" value="<%= course.fee %>">
+                            <span style="position: absolute;top: 12px; right:5%;color:red"></span>
                         </div>
                         <div class="form-group">
                             <label for="">Giảm giá</label>
@@ -49,7 +51,10 @@
                         </div>
                         <div class="form-group">
                             <label for="">Ngày kết thúc</label>
-                            <input type="date"  name="endDate" required="true" value="<%= formatTime(course.endDate) %>">
+                            <div style="flex: 2;">
+                                <input type="date"  name="endDate" required="true" style="width: 100%;" value="<%= formatTime(course.endDate) %>">
+                                <div id="err-date" style="color: red;display: block;"></div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Số buổi học</label>
@@ -106,6 +111,30 @@
             console.log(e.target.files[0])
             srcImg=URL.createObjectURL(e.target.files[0])
             imgEle.src=srcImg
+        })
+        const feeEl=document.querySelector('input[name="fee"]')
+        const feeDiscountEl=document.querySelector('input[name="feeDiscount"]')
+        feeEl.addEventListener('input',handleInput)
+        feeDiscountEl.addEventListener('input',handleInput)
+        function handleInput(e){
+            let value=parseInt(e.target.value)
+            value=formatMoney(value,'đ')
+            e.target.parentElement.querySelector('span').innerText=value
+        }
+        
+
+        const formEl=document.querySelector('form')
+        formEl.addEventListener('submit',(e)=>{
+            e.preventDefault()
+            console.log('vo day')
+            let start=new Date(document.querySelector('input[name="startDate"]').value)
+            let end=new Date(document.querySelector('input[name="endDate"]').value)
+            console.log(start)
+            if (end-start<0){
+                document.querySelector('#err-date').innerText='Ngày bắt đầu và kết thúc không hợp lệ'
+                return
+            }
+            formEl.submit()
         })
     })
 </script>

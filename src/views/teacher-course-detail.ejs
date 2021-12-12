@@ -30,8 +30,8 @@
                         <span id="star-1">☆</span><span id="star-2">☆</span><span id="star-3">☆</span><span id="star-4">☆</span><span id="star-5">☆</span>
                     </div>
                     
-                    <h5>Date Start : <%= formatTime(course.createdAt) %></>
-                    <h5>Date End :<%= formatTime(course.createdAt) %> </h5>
+                    <h5>Date Start : <%= formatTime(course.startDate) %></>
+                    <h5>Date End :<%= formatTime(course.endDate) %> </h5>
                     <a href="/teacher/<%= course.teacherId %>/course/<%= course.slug %>/edit" style="font-size: 22px;padding-top:  30px;">
                         <i class="bi bi-pencil-fill"></i>
                         Chỉnh sửa thông tin khóa học
