@@ -43,6 +43,12 @@
                         
                     </div>
                 <% }); %>
+                <% if (allCourse.length==0) { %>
+                    <div style="text-align: center;">
+                        Bạn chưa tạo khóa học nào
+                        <a href="/teacher/<%= user._id%>/course/create">Tạo khóa học</a>
+                    </div>
+                <% }; %>
             </div>
             
         

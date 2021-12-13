@@ -15,7 +15,7 @@
                         </a>
                         <div class="text p-4">
                             <h3><a href="/course/<%= name.slug %>"><%= name.name %></a></h3>
-                            <p class="advisor">Giảng viên <a href="/instructor/<%=  name.teacherId %>"><%=  name.teacherId %></a></p>
+                            <p class="advisor">Giảng viên <a href="/instructor/<%=  name.teacherId._id %>"><%=  name.teacherId.name %></a></p>
                             <ul class="d-flex justify-content-between">
                                 <ul style="display: flex;flex-direction: column; ">
                                     <li id="status-date"></li>
