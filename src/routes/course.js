@@ -3,6 +3,7 @@ const router = express.Router()
 const { courseController } = require('../controllers')
 
 router.get('/', courseController.home)
+router.get('/search', courseController.search)
 module.exports = router
 
 // Folders
