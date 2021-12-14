@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/css/checkout.css">
+    <title>1EDU - Live course </title>
+</head>
+<body>
+
+    <form action="/checkout" method="post" class="container">
+            <div class='window'>
+                <div class='order-info'>
+                    <div class='order-info-content'>
+                        <h2>Thanh toán</h2>
+                        <% allCourse.forEach(function(name) { %>
+                        <div class='line'></div>
+                        <table class='order-table'>
+                            <tbody>
+                            <tr>
+                                <td><img src=<%= name.imageUrl %> class='full-width'></img>
+                                    <input type="hidden" name="courseId" value="<%= name._id %>">
+                                </td>
+                                <td>
+                                <br> <span class='thin' style="font-weight: 600;font-size: 16px;">Giáo viên : <%= name.teacherId.name %></span>
+                                <br> <span style="font-weight: 550;font-size: 22px;"><%= name.name %></span> <br> <span class='thin small'> Ngày bắt đầu : <%= formatTime(name.startDate)  %><br><br></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                <div class='price' style="color: red;font-weight: 600;"><%= formatMoney(name.feeDiscount) %></div>
+                                </td>
+                            </tr>
+                            </tbody>
+                
+                        </table>
+                        <% }); %>
+                        <div class='line'></div>
+                        <div class='total'>
+                            <span style='float:left;'>
+                            <div class='thin dense'>Thành Tiền</div>
+                            <div class='thin dense'>Khuyến mãi</div>
+                            TOTAL
+                            </span>
+                            <span style='float:right; text-align:right;'>
+                            <div class='thin dense' style="font-weight: 600;color: red;">
+                                <%= formatMoney(sum(allCourse))%>
+                            </div>
+                            <div class='thin dense' style="font-weight: 600;color: red;">-<%= formatMoney(20000) %></div>
+                            <div style="font-weight: 650;color: red;"><%= formatMoney(sum(allCourse)-20000) %></div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class='credit-info'>
+                    <div class='credit-info-content'>
+                    <table class='half-input-table'>
+                        <tr><td>Please select your card: </td><td><div class='dropdown' id='card-dropdown'><div class='dropdown-btn' id='current-card'>Visa</div>
+                        <div class='dropdown-select'>
+                        <ul>
+                            <li>Master Card</li>
+                            <li>American Express</li>
+                            </ul></div>
+                        </div>
+                        </td></tr>
+                    </table>
+                    <img src='https://dl.dropboxusercontent.com/s/ubamyu6mzov5c80/visa_logo%20%281%29.png' height='80' class='credit-card-image' id='credit-card-image'></img>
+                    Card Number
+                    <input class='input-field'></input>
+                    Card Holder
+                    <input class='input-field'></input>
+                    <table class='half-input-table'>
+                        <tr>
+                        <td> Expires
+                            <input class='input-field'></input>
+                        </td>
+                        <td>CVC
+                            <input class='input-field'></input>
+                        </td>
+                        </tr>
+                    </table>
+                    <a style="background-color: #888;text-align: center;padding: 10px;cursor: pointer;border-radius: 10px;font-size: 16px;font-weight: 550;margin-top: 30px;">Quay lại giỏ hàng</a>
+                    <button class='pay-btn' style="text-align: center;">Checkout</button>
+        
+                    </div>
+        
+                </div>
+            </div>
+    </form>
+    
+</body>
+</html>

@@ -20,7 +20,7 @@ const editCourse = async (req, res) => {
 const detailCourse = async (req, res) => {
   const { id, slug } = req.params
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
-  res.render('teacher-course-detail', { course, formatTime: helper.formatTime })
+  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine })
 }
 
 const saveCreate = async (req, res) => {
@@ -54,7 +54,7 @@ const saveEditCourse = async (req, res) => {
     course.imageUrl = '/uploads/' + req.file.filename
   }
   await course.save()
-  res.render('teacher-course-detail', { course, formatTime: helper.formatTime })
+  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine })
 }
 
 module.exports = {
