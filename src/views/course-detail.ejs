@@ -4,9 +4,9 @@
     <%- include('./partials/head'); -%>
 </head>
 <body>
-    <%- include('./teachers/header'); -%>
+    <%- include('./partials/header',{check:true}); -%>
     
-    <section class="ftco-section bg-light" style="margin-top: 150px;">
+    <section class="ftco-section bg-light" style="margin-top: 50px;">
         <div class="container">
             <div class="row justify-content-center pb-4">
                 <div class="col-md-12 heading-section text-center ftco-animate">
@@ -15,47 +15,46 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-5 col-md-6 col-sm-12">
                     <img src="<%= course.imageUrl %>" alt="" style="height: auto;width: 100%;border-radius: 5px;box-shadow: 1px 2px 1px 2px rgb(240, 233, 233);">
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
-                    <h2 style="font-weight: 600;"><%= course.name %></h2>
-                    <p >Fee : <span style="text-decoration: line-through;color: #444444;font-size: 24px;font-weight: 600;"><%= course.fee %></span> </p>
-                    <p >FeeDiscount : <span style="color: red;font-size: 24px;font-weight: 600;"><%= course.feeDiscount %></span> </p>
-                    <p> Quantity Student : <%= course.quantityStudent %></p>
-                    <p>Created Time : <%= formatTime(course.createdAt) %></p>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="col-lg-6 col-md-6 col-sm-12" style="padding:30px;width: 300px;margin: 15px auto;" >
                     <div class="rating" style="font-size: 32px;color:rgb(214, 214, 35)" >
                         <span id="star-1">☆</span><span id="star-2">☆</span><span id="star-3">☆</span><span id="star-4">☆</span><span id="star-5">☆</span>
                     </div>
-                    
                     <h5>Date Start : <%= formatTime(course.startDate) %></>
                     <h5>Date End :<%= formatTime(course.endDate) %> </h5>
-                    <a href="/teacher/<%= course.teacherId %>/course/<%= course.slug %>/edit" style="font-size: 22px;padding-top:  30px;">
-                        <i class="bi bi-pencil-fill"></i>
-                        Chỉnh sửa thông tin khóa học
-                    </a>
+                    <a href="/checkout/<%= course._id %>" class="btn-join-course" data-id="<%= course._id %>">Mua khóa học</a>
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12" style="margin-top: 30px;">
-                    <div style="color: black;font-weight: 550;">Desciption :</div>
-                    <p><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i>
-                        <%- newLine(course.des) %></p>
-
+                
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <h2 style="font-weight: 600;"><%= course.name %></h2>
+                    <p ><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i> Fee : <span style="text-decoration: line-through;color: #444444;"><%= formatMoney(course.fee) %></span> </p>
+                    <p ><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i> FeeDiscount : <span style="color: red;font-size: 24px; font-weight: 600;"><%= formatMoney(course.feeDiscount) %></span> </p>
+                    <p ><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i>  Quantity Student : <%= course.quantityStudent %></p>
+                    <p ><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i> Created Time : <%= formatTime(course.createdAt) %></p>
+                    <div style="color: black;font-weight: 550;font-size: 22px;">Desciption :</div>
+                    <p><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i> <%- newLine(course.des) %></p>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12" style="margin-top: 30px;">
+                    
                 </div>
             </div>
             
         
     </section>
-    
 
 
 
     <%- include('./partials/footer'); -%>
+
+
+
 <!-- loader -->
 <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-<script src="/js/thang_custom.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/jquery-migrate-3.0.1.min.js"></script>
 <script src="/js/popper.min.js"></script>
@@ -69,6 +68,13 @@
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/scrollax.min.js"></script>
 <script src="/js/main.js"></script>
-
+<script src="/js/thang_custom.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const joinCourseBtn=document.querySelector('.btn-join-course')
+        console.log(joinCourseBtn)
+        
+    })
+</script>
 </body>
 </html>

@@ -7,14 +7,23 @@
 
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto" style="align-items: center;position: relative;">
-                <li class="nav-item"><a href="/" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="/course" class="nav-link">Course</a></li>
-                <li class="nav-item"><a href="/instructor" class="nav-link">Instructor</a></li>
-                <li class="nav-item"><a href="/blog" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="/contact" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a href="/" class="nav-link" <% if(check==true){ %> style="color: black !important; font-weight: 600;" <% } %>>Trang chủ</a></li>
+                <li class="nav-item"><a href="/course" class="nav-link" <% if(check==true){ %> style="color: black !important; font-weight: 600;" <% } %>>Khóa học</a></li>
+                <li class="nav-item"><a href="/instructor" class="nav-link" <% if(check==true){ %> style="color: black !important; font-weight: 600;" <% } %>>Giáo viên</a></li>
+                <li class="nav-item"><a href="/blog" class="nav-link" <% if(check==true){ %> style="color: black !important; font-weight: 600;" <% } %> >Blog</a></li>
                 <% if(user.role==1){ %>
-                    <li  class="nav-item"><a href="/teacher/<%= user._id %>" class="nav-link">Teach on 1EDU</a></li>
-                <% }  %>
+                    <li  class="nav-item"><a href="/teacher/<%= user._id %>" class="nav-link" <% if(check==true){ %> style="color: black !important; font-weight: 600;" <% } %>>Teach on 1EDU</a></li>
+                <% } else { %>
+                    <li class="nav-item"><a href="/contact" class="nav-link" <% if(check==true){ %> style="color: black !important; font-weight: 600;" <% } %>>Dạy trên 1EDU</a></li>
+                    <% } %>
+                    <li class="nav-item">
+                        <a href="/checkout" class="nav-link" style="color: black !important; font-weight: 600;">
+                            <i class="bi bi-cart-check-fill" style="color: #801c94; font-weight: 600;font-size: 26px;position: relative;">
+                                <span class="cart-count">0</span>
+                            </i>
+                        </a>
+                        
+                    </li>
                 <% if(user){ %>
                     <div id="avatar-img" style="width: 50px;height: 50px; border-radius: 50%;overflow: hidden;cursor: pointer;">
                         <img src="/images/avatar.png" alt="" style="width: 100%;" >
@@ -36,9 +45,11 @@
     document.addEventListener('DOMContentLoaded',()=>{
         const imgAvatar=document.querySelector('#avatar-img')
         const avatarMenu=document.querySelector('#avatar-menu')
-        imgAvatar.addEventListener('click',(e)=>{
-            avatarMenu.classList.toggle('visible')
-            console.log('da vo')
-        })
+        if(imgAvatar){
+            imgAvatar.addEventListener('click',(e)=>{
+                avatarMenu.classList.toggle('visible')
+                console.log('da vo')
+            })
+        }
     })
 </script>

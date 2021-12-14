@@ -4,7 +4,7 @@
     <%- include('./partials/head'); -%>
 </head>
 <body>
-    <%- include('./partials/header',{user}); -%>
+    <%- include('./partials/header',{user,check:false}); -%>
 <!-- END nav -->
 
     <div class="hero-wrap js-fullheight" style="background-image: url('/images/bg_1.jpg');">
@@ -36,7 +36,7 @@
                     <button type="submit" id="btn-login">Đăng nhập</button>
                 </div>
             </form>
-            <p class="text-center">Bạn chưa có tài khoản? <a href="#signin">Đăng ký ngay</a></p>
+            <p class="text-center">Bạn chưa có tài khoản? <a href="/" >Đăng ký ngay</a></p>
         </div>
     </section>
 

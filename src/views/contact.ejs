@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <%- include('./partials/head'); -%>
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
-    <%- include('./partials/header'); -%>
+    <%- include('./partials/header',{check:false}); -%>
     
     <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_2.jpg');">
 		<div class="overlay"></div>
@@ -26,25 +27,43 @@
 						<div class="row no-gutters">
 							<div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
 								<div class="contact-wrap w-100 p-md-5 p-4">
-									<h3 class="mb-4">Get in touch</h3>
+									<h3 class="mb-4" style="text-align: center;font-weight: 600;margin-bottom: 40px;">Đăng ký làm giáo viên</h3>
 									<form method="POST" id="contactForm" name="contactForm" class="contactForm">
 										<div class="row">
-											<div class="col-md-6">
+											<div class="col-md-12"> 
 												<div class="form-group">
-													<label class="label" for="name">Full Name</label>
-													<input type="text" class="form-control" name="name" id="name" placeholder="Name">
-												</div>
-											</div>
-											<div class="col-md-6"> 
-												<div class="form-group">
-													<label class="label" for="email">Email Address</label>
-													<input type="email" class="form-control" name="email" id="email" placeholder="Email">
+													<label class="label" for="email">CMND</label>
+													<input type="email" class="form-control" name="Địa chỉ" id="email" placeholder="CMND">
 												</div>
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<label class="label" for="subject">Subject</label>
+													<label class="label" for="name">Tuổi</label>
+													<input type="text" class="form-control" name="name" id="name" placeholder="Tuổi">
+												</div>
+											</div>
+											<div class="col-md-12"> 
+												<div class="form-group">
+													<label class="label" for="email">Địa chỉ</label>
+													<input type="email" class="form-control" name="Địa chỉ" id="email" placeholder="Email">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">Bằng cấp</label>
 													<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">Chuyên Ngành có thể dạy</label>
+													<input type="text" class="form-control" name="subject" id="subject" placeholder="Chuyên ngành..">
+												</div>
+											</div>
+											<div class="col-md-12">
+												<div class="form-group">
+													<label class="label" for="subject">Link video </label>
+													<input type="text" class="form-control" name="subject" id="subject" placeholder="Chuyên ngành..">
 												</div>
 											</div>
 											<div class="col-md-12">
@@ -55,7 +74,7 @@
 											</div>
 											<div class="col-md-12">
 												<div class="form-group">
-													<input type="submit" value="Send Message" class="btn btn-primary">
+													<input type="submit" value="Đăng ký " class="btn btn-primary">
 													<div class="submitting"></div>
 												</div>
 											</div>
@@ -134,7 +153,54 @@
 <script src="/js/jquery.animateNumber.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/scrollax.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="/js/main.js"></script>
-
+<script>
+	document.addEventListener('DOMContentLoaded',()=>{
+		const URL=window.location.origin
+		const btnSubmit=document.querySelector('input[type="submit"]')
+		btnSubmit.addEventListener('click',(e)=>{
+			const spinner=document.querySelector('.submitting')
+			e.preventDefault()
+			spinner.innerHTML=`<div class="spinner-border text-warning" role="status">
+									<span class="visually-hidden"></span>
+								</div>`
+			fetch(`${URL}/contact`,
+            {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify({name:1,email:2,password:3})
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res)
+                if(res.success){
+                    Toastify({
+                    text: "Chúc mừng bạn đăng ký giáo viên thành công",
+                    className: "info",
+                    offset:{
+                        x:'40px',
+                        y:'200px',
+                    },
+                    style: {
+                        background: "linear-gradient(to right, rgb(2, 170, 176), rgb(0, 205, 172))",
+                        borderRadius:"10px",
+                        height:"60px"
+                    }
+                    }).showToast();
+                    setTimeout(()=>{
+                        window.location.href=window.location.origin
+                    },1200)
+                }
+                else{
+                    document.querySelector('#err-email').textContent='Email này đã được sử dụng ! '
+                }
+            })
+		})
+	})
+</script>
 </body>
 </html>

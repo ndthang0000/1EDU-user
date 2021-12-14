@@ -122,3 +122,82 @@
 .err-color {
   color: #e74c3c !important;
 }
+.add-cart-btn,
+.schedule-btn {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #ce4be8;
+  color: white;
+  font-weight: 600;
+  font-size: 20px;
+  opacity: 0;
+  transition: 0.35s;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-bottom: 7px;
+}
+.add-cart-btn:hover,
+.schedule-btn:hover {
+  background-color: #b23aca;
+}
+.project-wrap:hover .add-cart-btn {
+  opacity: 1;
+  bottom: -15px;
+}
+.project-wrap:hover .schedule-btn {
+  opacity: 1;
+  bottom: -15px;
+}
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background-color: red;
+  z-index: -5;
+  font-style: normal;
+}
+
+.btn-join-course {
+  background-image: linear-gradient(
+    to right,
+    #da22ff 0%,
+    #9733ee 51%,
+    #da22ff 100%
+  );
+}
+.btn-join-course {
+  margin: 10px;
+  margin-top: 25px;
+  padding: 10px 35px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  cursor: pointer;
+}
+
+.btn-join-course:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+.toastify-avatar {
+  width: 90px !important;
+  height: auto !important;
+}

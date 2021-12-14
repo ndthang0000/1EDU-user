@@ -9,13 +9,13 @@ const Course = new Schema({
   idTeacher: Schema.Types.ObjectId,
   des: String,
   quantityStudent: { type: Number, default: 0 },
-  rating: { point: Number, quantity: Number },
   fee: Number,
   feeDiscount: Number,
   startDate: { type: Date, required: true },
   endDate: { type: Date, required: true },
   numberLesson: Number,
   imageUrl: { type: String, required: true },
+  rating: { point: { type: Number, default: 0 }, quantity: { type: Number, default: 0 } },
   teacherId: { type: Schema.Types.ObjectId, ref: 'User' },
   slug: { type: String, slug: 'name', unique: true }
 }, { timestamps: true })

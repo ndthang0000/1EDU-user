@@ -4988,7 +4988,7 @@ input[type="button"].btn-block {
     display: flex !important;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
-    padding: 5px;
+    padding: 0px;
   }
   .navbar-expand-lg .navbar-toggler {
     display: none;
@@ -11468,7 +11468,7 @@ h5,
 }
 .login-wrap .form-group {
   position: relative;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 .login-wrap .form-group label {
   position: absolute;

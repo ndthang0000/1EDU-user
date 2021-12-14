@@ -8,14 +8,14 @@
         </div>
         <div class="row">
             <% allCourse.forEach(function(name) { %>
-                <div class="col-md-6 col-lg-4 ftco-animate">
-                    <div class="project-wrap">
-                        <a href="/teacher/<%= name.teacherId._id %>/course/<%= name.slug %>/detail" class="img" style="background-image: url(<%= name.imageUrl %>)">
+                <div class="col-md-6 col-lg-4 ftco-animate" >
+                    <div class="project-wrap" style="position: relative;">
+                        <a href="/course/<%= name.slug %>" class="img" style="background-image: url(<%= name.imageUrl %>)">
                             <span class="price">Software</span>
                         </a>
-                        <div class="text p-4">
-                            <h3><a href="/teacher/<%= name.teacherId %>/course/<%= name.slug %>/detail"><%= name.name %></a></h3>
-                            <p class="advisor">Giảng viên <span><%=  name.teacherId.name%></span></p>
+                        <div class="text p-4" style="padding-bottom: 30px;">
+                            <h3><a href="/course/<%= name.slug %>"><%= name.name %></a></h3>
+                            <p class="advisor">Giảng viên <a href="/instructor/<%=  name.teacherId._id %>"><%=  name.teacherId.name %></a></p>
                             <ul class="d-flex justify-content-between">
                                 <ul style="display: flex;flex-direction: column; ">
                                     <li id="status-date"></li>
@@ -30,8 +30,8 @@
                                 </ul>
                             </ul>
                         </div>
-                    </div>
-                    
+                        <div class="add-cart-btn" data-id="<%= name._id %>" data-image=<%= name.imageUrl %> >Thêm vào giỏ hàng</div>                
+                    </div>  
                 </div>
             <% }); %>
         </div>
@@ -44,11 +44,8 @@
         const dateStatus=document.querySelectorAll('#status-date')
         dateStatus.forEach((item,index)=>{
             let startDate=new Date(startDateEle[index].value)
-            console.log(startDate)
             let endDate=new Date(endDateEl[index].value)
-            console.log(endDate)
             let today=new Date()
-            console.log(today)
             if(today-startDate<0){
                 item.innerText='Sắp bắt đầu'
                 item.classList.add('success-color')
@@ -61,6 +58,11 @@
                 item.innerText='Đang diễn ra'
                 item.classList.add('info-color')
             }
+        })
+
+        const addCartBtn=document.querySelectorAll('.add-cart-btn')
+        addCartBtn.forEach(item=>{
+            item.addEventListener('click',addCart)
         })
     })
     
