@@ -12,12 +12,32 @@ document.addEventListener('DOMContentLoaded',()=>{
 function updateCart(){
     let currentCart=JSON.parse(localStorage.getItem('cart'))
     const quantityCount=document.querySelector('.cart-count')
+    if(!currentCart){
+        quantityCount.innerText='0'
+        return
+    }
     quantityCount.innerText=currentCart.length
 }
 function formatMoney(n, currency) {
     return n.toFixed(0).replace(/./g, function(c, i, a) {
         return i > 0 && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
     })+ currency;
+}
+function showToast(image){
+    Toastify({
+        text: "Thêm vào giỏ hàng thành công",
+        duration: 3000,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        y:'50px',
+        avatar:image,
+        style: {
+            background: "linear-gradient(0deg, rgb(217, 175, 217) 0%, rgb(151, 217, 225) 100%);",
+        }
+    }).showToast();
+
 }
 function addCart(e){
     let currentCart=localStorage.getItem('cart')
@@ -26,6 +46,7 @@ function addCart(e){
         let newCart=[{id:e.target.dataset.id,quantity:1}]
         localStorage.setItem('cart',JSON.stringify(newCart))
         updateCart()
+        showToast(e.target.dataset.image)
     }
     else{
         currentCart=JSON.parse(currentCart)
@@ -34,6 +55,7 @@ function addCart(e){
                 currentCart[i].quantity+=1
                 localStorage.setItem('cart',JSON.stringify(currentCart)) 
                 updateCart()
+                showToast(e.target.dataset.image)
                 return
             }
         }
@@ -44,6 +66,8 @@ function addCart(e){
         console.log('vo day')
         currentCart.push(newItem)
         localStorage.setItem('cart',JSON.stringify(currentCart))  
+        showToast(e.target.dataset.image)
         updateCart()   
     }
+
 }

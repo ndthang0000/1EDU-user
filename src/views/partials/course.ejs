@@ -30,7 +30,7 @@
                                 </ul>
                             </ul>
                         </div>
-                        <div class="add-cart-btn" data-id="<%= name._id %>">Thêm vào giỏ hàng</div>                
+                        <div class="add-cart-btn" data-id="<%= name._id %>" data-image=<%= name.imageUrl %> >Thêm vào giỏ hàng</div>                
                     </div>  
                 </div>
             <% }); %>
@@ -64,7 +64,6 @@
         addCartBtn.forEach(item=>{
             item.addEventListener('click',addCart)
         })
-        
     })
     
 </script>

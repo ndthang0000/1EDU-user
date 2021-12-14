@@ -4988,7 +4988,7 @@ input[type="button"].btn-block {
     display: flex !important;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
-    padding: 5px;
+    padding: 0px;
   }
   .navbar-expand-lg .navbar-toggler {
     display: none;
