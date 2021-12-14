@@ -8,12 +8,12 @@
         </div>
         <div class="row">
             <% allCourse.forEach(function(name) { %>
-                <div class="col-md-6 col-lg-4 ftco-animate">
-                    <div class="project-wrap">
+                <div class="col-md-6 col-lg-4 ftco-animate" >
+                    <div class="project-wrap" style="position: relative;">
                         <a href="/course/<%= name.slug %>" class="img" style="background-image: url(<%= name.imageUrl %>)">
                             <span class="price">Software</span>
                         </a>
-                        <div class="text p-4">
+                        <div class="text p-4" style="padding-bottom: 30px;">
                             <h3><a href="/course/<%= name.slug %>"><%= name.name %></a></h3>
                             <p class="advisor">Giảng viên <a href="/instructor/<%=  name.teacherId._id %>"><%=  name.teacherId.name %></a></p>
                             <ul class="d-flex justify-content-between">
@@ -30,8 +30,8 @@
                                 </ul>
                             </ul>
                         </div>
-                    </div>
-                    
+                        <div class="add-cart-btn" data-id="<%= name._id %>">Thêm vào giỏ hàng</div>                
+                    </div>  
                 </div>
             <% }); %>
         </div>
@@ -59,6 +59,12 @@
                 item.classList.add('info-color')
             }
         })
+
+        const addCartBtn=document.querySelectorAll('.add-cart-btn')
+        addCartBtn.forEach(item=>{
+            item.addEventListener('click',addCart)
+        })
+        
     })
     
 </script>
