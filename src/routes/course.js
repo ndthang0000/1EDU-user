@@ -4,6 +4,7 @@ const { courseController } = require('../controllers')
 
 router.get('/', courseController.home)
 router.get('/search', courseController.search)
+router.get('/:slug', courseController.detail)
 module.exports = router
 
 // Folders
