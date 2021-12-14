@@ -508,72 +508,77 @@
         let confirmPasswordEl = document.querySelector('input[name="confirmPassword"]')
         let isValidEmail=false
         let isValidPassword=false
-        emailEl.addEventListener('blur',(e)=>{
-            if(!ValidateEmail(e.target.value)){
-                document.querySelector('#err-email').textContent='Email không hợp lệ ! '
-            }
-            else{
-                isValidEmail=true
-                document.querySelector('#err-email').textContent=''
-            }
-        })
-        confirmPasswordEl.addEventListener('input',(e)=>{
-            let password=passwordEl.value
-            if(password!==e.target.value){
-                document.querySelector('#err-password').textContent='Kiểm tra lại password !! '
-            }else{
-                isValidPassword=true
-                document.querySelector('#err-password').textContent=''
-            }
-        })
-        console.log(btnSubmit)
-        btnSubmit.addEventListener('click',(e)=>{
-            e.preventDefault()
-            console.log('vo day')
-            if(!isValidEmail||!isValidPassword){
-                return
-            }
-            let name=nameEl.value
-            let email=emailEl.value
-            let password=passwordEl.value
-            console.log(name)
-            console.log(email)
-            console.log(password)
-            fetch(`${URL}/auth/register`,
-            {
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify({name,email,password})
-            })
-            .then(res=>res.json())
-            .then(res=>{
-                console.log(res)
-                if(res.success){
-                    Toastify({
-                    text: "Tạo tài khoản thành công",
-                    className: "info",
-                    offset:{
-                        x:'20px',
-                        y:'200px',
-                    },
-                    style: {
-                        background: "linear-gradient(to right, #00b09b, #96c93d)",
-                        borderRadius:"10px",
-                        height:"60px"
-                    }
-                    }).showToast();
-                    setTimeout(()=>{
-                        window.location.href=window.location.origin+'/auth/login'
-                    },1200)
+        if(emailEl){
+            emailEl.addEventListener('blur',(e)=>{
+                if(!ValidateEmail(e.target.value)){
+                    document.querySelector('#err-email').textContent='Email không hợp lệ ! '
                 }
                 else{
-                    document.querySelector('#err-email').textContent='Email này đã được sử dụng ! '
+                    isValidEmail=true
+                    document.querySelector('#err-email').textContent=''
                 }
             })
-        })
+        }
+        if(confirmPasswordEl){
+            confirmPasswordEl.addEventListener('input',(e)=>{
+                let password=passwordEl.value
+                if(password!==e.target.value){
+                    document.querySelector('#err-password').textContent='Kiểm tra lại password !! '
+                }else{
+                    isValidPassword=true
+                    document.querySelector('#err-password').textContent=''
+                }
+            })
+        }
+        if(btnSubmit){
+            btnSubmit.addEventListener('click',(e)=>{
+                e.preventDefault()
+                console.log('vo day')
+                if(!isValidEmail||!isValidPassword){
+                    return
+                }
+                let name=nameEl.value
+                let email=emailEl.value
+                let password=passwordEl.value
+                console.log(name)
+                console.log(email)
+                console.log(password)
+                fetch(`${URL}/auth/register`,
+                {
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({name,email,password})
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    console.log(res)
+                    if(res.success){
+                        Toastify({
+                        text: "Tạo tài khoản thành công",
+                        className: "info",
+                        offset:{
+                            x:'20px',
+                            y:'200px',
+                        },
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                            borderRadius:"10px",
+                            height:"60px"
+                        }
+                        }).showToast();
+                        setTimeout(()=>{
+                            window.location.href=window.location.origin+'/auth/login'
+                        },1200)
+                    }
+                    else{
+                        document.querySelector('#err-email').textContent='Email này đã được sử dụng ! '
+                    }
+                })
+            })
+        }
 
 
 

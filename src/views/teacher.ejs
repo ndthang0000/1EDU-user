@@ -17,7 +17,7 @@
             <div class="row">
                 <% allCourse.forEach(function(name) { %>
                     <div class="col-md-6 col-lg-4 ftco-animate">
-                        <div class="project-wrap">
+                        <div class="project-wrap" style="position: relative;">
                             <a href="/teacher/<%= name.teacherId %>/course/<%= name.slug %>/detail" class="img" style="background-image: url(<%= name.imageUrl %>)">
                                 <span class="price">Software</span>
                             </a>
@@ -39,6 +39,7 @@
                                     </ul>
                                 </ul>
                             </div>
+                            <div class="add-cart-btn">Thêm vào giỏ hàng</div>  
                         </div>
                         
                     </div>

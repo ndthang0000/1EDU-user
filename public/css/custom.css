@@ -122,3 +122,43 @@
 .err-color {
   color: #e74c3c !important;
 }
+.add-cart-btn {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background-color: #ce4be8;
+  color: white;
+  font-weight: 600;
+  font-size: 22px;
+  opacity: 0;
+  transition: 0.35s;
+  cursor: pointer;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding-bottom: 7px;
+}
+.add-cart-btn:hover {
+  background-color: #b23aca;
+}
+.project-wrap:hover .add-cart-btn {
+  opacity: 1;
+  bottom: -15px;
+}
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  color: white;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  background-color: red;
+  z-index: -5;
+  font-style: normal;
+}
