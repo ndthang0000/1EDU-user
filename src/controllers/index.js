@@ -6,6 +6,7 @@ const instructorController = require('./instructor')
 const courseController = require('./course')
 const teacherController = require('./teacher')
 const checkoutController = require('./checkout')
+const cartController = require('./cart')
 
 module.exports = {
   blogController,
@@ -15,5 +16,6 @@ module.exports = {
   homeController,
   contactController,
   teacherController,
-  checkoutController
+  checkoutController,
+  cartController
 }

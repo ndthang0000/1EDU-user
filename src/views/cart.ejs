@@ -1,0 +1,158 @@
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); -%>
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <%- include('./partials/header',{check:true}); -%>
+    
+    <section class="shopping-cart spad" style="margin-top: 100px;">
+        <h2 style="text-align: center;margin-bottom: 30px;color: #ce4be8;font-weight: 600;"><i class="bi bi-cart-check-fill"></i> Giỏ Hàng của bạn</h2>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="shopping__cart__table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Khóa học</th>
+                                    <th>Số lượng</th>
+                                    <th>Thành tiền</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% allCart.forEach(function(item) { %>
+                                <tr>
+                                    <td class="product__cart__item" style="display: flex;align-items: center;flex-wrap: wrap;">
+                                        <div class="product__cart__item__pic" style="flex-shrink: 0;">
+                                            <img src="<%= item.courseId.imageUrl%>" alt="" style="width: 80px;vertical-align: middle !important;">
+                                        </div>
+                                        <div class="product__cart__item__text">
+                                            <h6><%= item.courseId.name %></h6>
+                                        </div>
+                                    </td>
+                                    <td class="quantity__item" style="text-align: center;">
+                                        <div class="quantity">
+                                            <div class="pro-qty-2">
+                                                <input type="text" value="<%= item.quantity %>">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="cart__price"><%= formatMoney(item.courseId.feeDiscount*item.quantity) %></td>
+                                    <td class="cart__close">
+                                        <i class="fa fa-close" style="cursor: pointer;" data-courseId="<%= item.courseId._id %>" data-studentId="<%= user._id %>"></i></td>
+                                </tr>
+                                <% }); %>
+                                
+                            </tbody>
+                        </table>
+                        <% if (allCart.length==0) { %>
+                            <div style="font-size: 20px; color: #555;font-weight: 550;text-align: center;margin-top: 20px;">
+                                Giỏ hàng trống
+                                <a href="/course">Tìm khóa học</a>
+                            </div>
+                            <% } %>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn">
+                                <a href="#" style="pointer-events: none;"></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="continue__btn update__btn">
+                                <a href="/course"><i class="fa fa-spinner"></i> Trở lại tìm kiếm hóa học</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="cart__discount">
+                        <h6 style="color: red;">Code giảm giá</h6>
+                        <form action="#">
+                            <input type="text" placeholder="mã giảm giá">
+                            <button type="submit"> Áp dụng</button>
+                        </form>
+                    </div>
+                    <div class="cart__total">
+                        <h6>Tổng tiền</h6>
+                        <ul>
+                            <li>Khuyến mãi
+                                <span>
+                                    -<%= formatMoney(sumCartDiscount(allCart)) %>                             
+                                </span>
+                            </li>
+                            <li>Total <span>
+                                <%= formatMoney(sumCart(allCart))  %></span></li>
+                        </ul>
+                        <a href="/checkout" class="primary-btn">Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <input type="hidden" name="userId" value="<%= user._id%>">
+    <%- include('./partials/footer'); -%>
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/thang_custom.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const closeBtn =document.querySelectorAll('.fa-close')
+        console.log(closeBtn)
+        closeBtn.forEach(item=>{
+            item.addEventListener('click',(e)=>{
+            console.log(e.target)
+            console.log(e.target.dataset.studentid)
+            console.log(e.target.dataset.courseid)
+            fetch(`${window.location.origin}/cart/delete`,
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                method: "POST",
+                body: JSON.stringify({studentId:e.target.dataset.studentid,courseId:e.target.dataset.courseid})
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                e.target.parentElement.parentElement.remove()
+                let currentCart=JSON.parse(localStorage.getItem('cartLength'))
+                currentCart.quantity-=1
+                localStorage.setItem('cartLength',JSON.stringify(currentCart))
+                renderCartLength()
+            })
+        })
+        })
+        
+    })
+</script>
+</body>
+</html>

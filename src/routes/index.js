@@ -7,11 +7,13 @@ const ContactRouter = require('./contact')
 const authRouter = require('./auth')
 const profileRouter = require('./profile')
 const TeacherRouter = require('./teacher')
+const CartRouter = require('./cart')
 
 const { authMiddleware } = require('../middlewares')
 
 function route (app) {
   app.use('/course', CourseRouter)
+  app.use('/cart', CartRouter)
   app.use('/instructor', InstructorRouter)
   app.use('/blog', BlogRouter)
   app.use('/checkout', CheckoutRouter)

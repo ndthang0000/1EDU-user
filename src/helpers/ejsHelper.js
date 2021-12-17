@@ -26,10 +26,18 @@ const newLine = (a) => {
 const sum = (arr) => {
   return arr.reduce((total, item) => { return total + item.feeDiscount }, 0)
 }
+const sumCartDiscount = (arr) => {
+  return arr.reduce((total, item) => { return total + (item.courseId.fee - item.courseId.feeDiscount) * item.quantity }, 0)
+}
+const sumCart = (arr) => {
+  return arr.reduce((total, item) => { return total + item.courseId.feeDiscount * item.quantity }, 0)
+}
 module.exports = {
   formatTime,
   formatTimeType2,
   formatMoney,
   newLine,
-  sum
+  sum,
+  sumCartDiscount,
+  sumCart
 }

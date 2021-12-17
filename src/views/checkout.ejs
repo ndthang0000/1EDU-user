@@ -89,6 +89,12 @@
                 </div>
             </div>
     </form>
-    
+    <input type="hidden" name="userId" value="<%= user._id%>">
+    <script src="/js/thang_custom.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{
+            updateCart()
+        })
+    </script>
 </body>
 </html>

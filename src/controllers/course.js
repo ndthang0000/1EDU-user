@@ -23,16 +23,15 @@ const search = async (req, res) => {
   } catch (e) {
     console.log(e)
   }
+}
+const detail = async (req, res) => {
+  const { slug } = req.params
+  const course = await CourseModel.findOne({ slug: slug })
+  res.render('course-detail', { course, formatTime: helper.formatTime, formatMoney: helper.formatMoney, newLine: helper.newLine })
+}
 
-  const detail = async (req, res) => {
-    const { slug } = req.params
-    const course = await CourseModel.findOne({ slug: slug })
-    res.render('course-detail', { course, formatTime: helper.formatTime, formatMoney: helper.formatMoney, newLine: helper.newLine })
-  }
-  module.exports = {
-    home,
-    search,
-    detail
-  }
-
-
+module.exports = {
+  home,
+  search,
+  detail
+}

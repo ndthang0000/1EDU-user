@@ -1,6 +1,7 @@
 (function($) {
 
 	"use strict";
+	const isLogin=document.querySelector('input[name="isLogin"]')
 
 	$(window).stellar({
     responsive: true,
