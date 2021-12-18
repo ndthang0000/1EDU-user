@@ -3,11 +3,9 @@ const { helper } = require('../helpers')
 
 const cart = async (req, res) => {
   const allCart = await CartModel.find({ studentId: req.user._id })
-  console.log(allCart)
   const listCourse = allCart.map(item => {
     return item.courseId
   })
-  console.log(listCourse)
   const allCourse = await CourseModel.find({ _id: { $in: listCourse } }).populate('teacherId')
   console.log(allCourse)
   return res.render('checkout', { allCourse, formatMoney: helper.formatMoney, formatTime: helper.formatTime, sum: helper.sum })

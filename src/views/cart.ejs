@@ -43,19 +43,25 @@
                                     <td class="quantity__item" style="text-align: center;">
                                         <div class="quantity">
                                             <div class="pro-qty-2">
-                                                <input type="text" value="<%= item.quantity %>">
+                                                <input type="text" value="1">
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="cart__price"><%= formatMoney(item.courseId.feeDiscount*item.quantity) %></td>
+                                    <td class="cart__price" style="color: red;">
+                                        <div style="color: #777;text-decoration: line-through;font-weight: 500;font-size: 14px;">
+                                            <%= formatMoney(item.courseId.fee) %>
+                                        </div>
+                                        <div>
+                                            <%= formatMoney(item.courseId.feeDiscount) %>
+                                        </div>
+                                    </td>
                                     <td class="cart__close">
-                                        <i class="fa fa-close" style="cursor: pointer;" data-courseId="<%= item.courseId._id %>" data-studentId="<%= user._id %>"></i></td>
+                                        <i class="fa fa-close" style="cursor: pointer;" data-courseId="<%= item.courseId._id %>" data-studentId="<%= user._id %>" data-feeDiscount="<%= item.courseId.feeDiscount %>" data-fee=<%= item.courseId.fee%>" ></i></td>
                                 </tr>
                                 <% }); %>
-                                
                             </tbody>
                         </table>
-                        <% if (allCart.length==0) { %>
+                        <% if (allCart.length==0&&user._id) { %>
                             <div style="font-size: 20px; color: #555;font-weight: 550;text-align: center;margin-top: 20px;">
                                 Giỏ hàng trống
                                 <a href="/course">Tìm khóa học</a>
@@ -88,11 +94,26 @@
                         <ul>
                             <li>Khuyến mãi
                                 <span>
-                                    -<%= formatMoney(sumCartDiscount(allCart)) %>                             
+                                    <% if (allCart.length>0) { %>
+                                        -<%= formatMoney(sumCartDiscount(allCart)) %> 
+                                        <input type="text" style="display: none;" name="sumCartDiscount" value="<%= sumCartDiscount(allCart) %>">                        
+                                    <% }else{ %>
+                                        0
+                                        <input type="text" style="display: none;" name="sumCartDiscount" value="0"> 
+                                    <% } %>   
                                 </span>
                             </li>
-                            <li>Total <span>
-                                <%= formatMoney(sumCart(allCart))  %></span></li>
+                            <li>Total 
+                                <span>
+                                    <% if (allCart.length>0) { %>
+                                        <%= formatMoney(sumCart(allCart)) %> 
+                                        <input type="text" style="display: none;" name="sumCart" value="<%= sumCart(allCart) %>"> 
+                                    <% }else{ %>
+                                        <input type="text" style="display: none;" name="sumCart" value="0"> 
+                                        0
+                                    <% } %>  
+                                </span>
+                            </li>
                         </ul>
                         <a href="/checkout" class="primary-btn">Thanh toán</a>
                     </div>
@@ -125,33 +146,142 @@
 
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
-        const closeBtn =document.querySelectorAll('.fa-close')
-        console.log(closeBtn)
-        closeBtn.forEach(item=>{
-            item.addEventListener('click',(e)=>{
-            console.log(e.target)
-            console.log(e.target.dataset.studentid)
-            console.log(e.target.dataset.courseid)
-            fetch(`${window.location.origin}/cart/delete`,
+        const userId=document.querySelector('input[name="userId"]').value
+        const tbodyEl=document.querySelector('tbody')
+        let sumDisEle=document.querySelector('input[name="sumCartDiscount"]')
+        let sumEle=document.querySelector('input[name="sumCart"]')
+        const spanEl=document.querySelectorAll('.cart__total span')
+
+        if(!userId){
+            let cart=JSON.parse(localStorage.getItem('cart'))
+            fetch(`${window.location.origin}/course/getArray`,
             {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
-                    },
+                },
                 method: "POST",
-                body: JSON.stringify({studentId:e.target.dataset.studentid,courseId:e.target.dataset.courseid})
+                body: JSON.stringify({cart})
             })
             .then(res=>res.json())
             .then(res=>{
-                e.target.parentElement.parentElement.remove()
-                let currentCart=JSON.parse(localStorage.getItem('cartLength'))
-                currentCart.quantity-=1
-                localStorage.setItem('cartLength',JSON.stringify(currentCart))
-                renderCartLength()
+                if(res.success){
+                    let html=res.allCourse.map(item=>{
+                        return `
+                            <tr>
+                                <td class="product__cart__item" style="display: flex;align-items: center;flex-wrap: wrap;">
+                                    <div class="product__cart__item__pic" style="flex-shrink: 0;">
+                                        <img src="${item.imageUrl}" alt="" style="width: 80px;vertical-align: middle !important;">
+                                    </div>
+                                    <div class="product__cart__item__text">
+                                        <h6> ${item.name}</h6>
+                                    </div>
+                                </td>
+                                <td class="quantity__item" style="text-align: center;">
+                                    <div class="quantity">
+                                        <div class="pro-qty-2">
+                                            <input type="text" value="1">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="cart__price" style="color:red" >
+                                    <div style="color: #777;text-decoration: line-through;font-weight: 500;font-size: 14px;">
+                                        ${formatMoney(item.fee,'đ')}
+                                    </div>
+                                    <div>
+                                        ${formatMoney(item.feeDiscount,'đ')}
+                                        
+                                    </div>
+                                </td>
+                                <td class="cart__close">
+                                    <i class="fa fa-close" style="cursor: pointer;" data-courseId="${item._id}" data-studentId="0" data-fee="${item.fee}" data-feeDiscount="${item.feeDiscount}"></i></td>
+                            </tr>
+                        `
+                    }).join()
+                    document.querySelector('tbody').innerHTML=html
+
+                    // sumDisEle.value=parseInt(res.allCourse.reduce((total,item)=>{
+                    //     return total+item.fee-item.feeDiscount
+                    // },0))
+                    // console.log(sumDisEle)
+                    // console.log(sumEle)
+                    // sumEle.value=parseInt(res.allCourse.reduce((total,item)=>{
+                    //     return total+item.feeDiscount
+                    // },0))
+                    let sumsub=res.allCourse.reduce((total,item)=>{
+                        return total+item.fee-item.feeDiscount
+                    },0)
+                    let sumtotal=res.allCourse.reduce((total,item)=>{
+                        return total+item.feeDiscount
+                    },0)
+                    spanEl[0].innerText='-'+formatMoney(sumsub,'đ')
+                    spanEl[1].innerText=formatMoney(sumtotal,'đ')
+                    sumDisEle.setAttribute('value',sumsub)
+                    sumEle.setAttribute('value',sumtotal)
+
+                }
             })
+        }
+
+        tbodyEl.addEventListener('click',(e)=>{
+            if(e.target.nodeName==='I'&&!userId){
+                e.target.parentElement.parentElement.remove()
+                let currentCart=JSON.parse(localStorage.getItem('cart'))
+                console.log(e.target.dataset.courseid)
+                currentCart=currentCart.filter(item=>{
+                    return item!==e.target.dataset.courseid
+                })
+                localStorage.setItem('cart',JSON.stringify(currentCart))
+
+                console.log(sumDisEle)
+                console.log(sumEle)
+                spanEl[0].innerText='-'+formatMoney((parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)),'đ')
+                spanEl[1].innerText=formatMoney(parseInt(sumEle.value)-parseInt(e.target.dataset.feediscount),'đ')
+                console.log(parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee))
+                sumDisEle.setAttribute('value',parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)) 
+                sumEle.setAttribute('value',parseInt(sumEle.value)-parseInt(e.target.dataset.feediscount))
+            }
         })
-        })
+
+
+        const closeBtn =document.querySelectorAll('.fa-close')
+        console.log(closeBtn)
+        if(userId){
+            closeBtn.forEach(item=>{
+                item.addEventListener('click',(e)=>{
+                    console.log(e.target)
+                    console.log(e.target.dataset.studentid)
+                    console.log(e.target.dataset.courseid)
+                    fetch(`${window.location.origin}/cart/delete`,
+                    {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                            },
+                        method: "POST",
+                        body: JSON.stringify({studentId:e.target.dataset.studentid,courseId:e.target.dataset.courseid})
+                    })
+                    .then(res=>res.json())
+                    .then(res=>{
+                        if(res){
+                            const spanEl=document.querySelectorAll('.cart__total span')
+                            e.target.parentElement.parentElement.remove()
+                            let currentCart=JSON.parse(localStorage.getItem('cartLength'))
+                            currentCart.quantity-=1
+                            localStorage.setItem('cartLength',JSON.stringify(currentCart))
+                            renderCartLength()
+
+                            spanEl[0].innerText='-'+formatMoney((parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)),'đ')
+                            spanEl[1].innerText=formatMoney(parseInt(sumEle.value)-parseInt(e.target.dataset.feediscount),'đ')
+                            sumDisEle.value=parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)
+                            sumEle.value=parseInt(sumEle.value)-parseInt(e.target.dataset.feediscount)
+                        }
+                    })
+                })
+            })
+        }
         
+
     })
 </script>
 </body>
