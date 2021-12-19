@@ -4,14 +4,14 @@
     <%- include('./partials/head'); -%>
 </head>
 <body>
-    <%- include('./partials/header'); -%>
+    <%- include('./partials/header',{check:false}); -%>
     
     
 
 
 
     <%- include('./partials/footer'); -%>
-
+    <input type="hidden" name="userId" value="<%= user._id%>">
 
 
 <!-- loader -->

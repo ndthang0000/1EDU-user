@@ -12,7 +12,7 @@
 		<div class="container">
 			<div class="row no-gutters slider-text align-items-end justify-content-center">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
-					<p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Course Lists <i class="fa fa-chevron-right"></i></span></p>
+					<p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>Course Lists <i class="fa fa-chevron-right"></i></span></p>
 					<h1 class="mb-0 bread">Course Lists</h1>
 				</div>
 			</div>
@@ -81,23 +81,29 @@
 					<div class="row mt-5">
 						<div class="col">
 							<div class="block-27">
-								<ul>
-									<li><a href="#">&lt;</a></li>
-									<li class="active"><span>1</span></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#">&gt;</a></li>
+								<ul class="pagination">
+									<li><a href="?page=<%= currentPage-1==0?1:currentPage-1 %>">&lt;</a></li>
+									<% for (let i = 1; i<quantity+1; i++) { %>
+										<li <%if(i==currentPage){ %> 
+											class="active"
+											<% } %>
+											>
+											<a href="?page=<%= i %>">
+												<%= i %>
+											</a>
+										</li>
+									<% } %>
+									<li><a href="?page=<%= currentPage==quantity?quantity:parseInt(currentPage)+1 %>">&gt;</a></li>
 								</ul>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 		</section>
 		<input type="hidden" name="userId" value="<%= user._id %>">
-
+		<input type="hidden" name="quantity" value="<%= quantity %>">
 
     <%- include('./partials/footer'); -%>
 
@@ -122,6 +128,13 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/thang_custom.js"></script>
-
+<script >
+	document.addEventListener('DOMContentLoaded',()=>{
+		const paginationEl=document.querySelector('.pagination')
+		console.log(paginationEl)
+		const quantityPage=parseInt(document.querySelector('input[name="quantity"]').value)
+		console.log(window.location)
+	})
+</script>
 </body>
 </html>

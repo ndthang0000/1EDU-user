@@ -39,18 +39,18 @@
                                     </ul>
                                 </ul>
                             </div>
-                            <div class="add-cart-btn">Tạo lịch học</div>  
+                            <a class="add-cart-btn" href="/teacher/<%= name._id %>/course/schedule">Tạo lịch học</a>  
                         </div>
                         
                     </div>
                 <% }); %>
-                <% if (allCourse.length==0) { %>
-                    <div style="text-align: center;">
-                        Bạn chưa tạo khóa học nào
-                        <a href="/teacher/<%= user._id%>/course/create">Tạo khóa học</a>
-                    </div>
-                <% }; %>
             </div>
+            <% if (allCourse.length==0) { %>
+                <div style="text-align: center; justify-self: center;">
+                    Bạn chưa giảng dạy khóa học nào
+                    <a href="/teacher/<%= user._id%>/course/create">Tạo khóa học</a>
+                </div>
+            <% }; %>
             
         
     </section>
@@ -82,11 +82,8 @@
     const dateStatus=document.querySelectorAll('#status-date')
     dateStatus.forEach((item,index)=>{
         let startDate=new Date(startDateEle[index].value)
-        console.log(startDate)
         let endDate=new Date(endDateEl[index].value)
-        console.log(endDate)
         let today=new Date()
-        console.log(today)
         if(today-startDate<0){
             item.innerText='Sắp bắt đầu'
             item.classList.add('success-color')

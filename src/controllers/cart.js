@@ -5,6 +5,7 @@ const home = async (req, res) => {
     const allCart = await CartModel.find({ studentId: req.user._id }).populate('courseId')
     return res.render('cart', { allCart, formatMoney: helper.formatMoney, sumCart: helper.sumCart, sumCartDiscount: helper.sumCartDiscount })
   }
+  console.log('vo day')
   return res.render('cart', { allCart: [] })
 }
 const cart = async (req, res) => {

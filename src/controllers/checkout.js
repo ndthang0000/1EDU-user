@@ -3,11 +3,9 @@ const { helper } = require('../helpers')
 
 const cart = async (req, res) => {
   const allCart = await CartModel.find({ studentId: req.user._id })
-  console.log(allCart)
   const listCourse = allCart.map(item => {
     return item.courseId
   })
-  console.log(listCourse)
   const allCourse = await CourseModel.find({ _id: { $in: listCourse } }).populate('teacherId')
   console.log(allCourse)
   return res.render('checkout', { allCourse, formatMoney: helper.formatMoney, formatTime: helper.formatTime, sum: helper.sum })
@@ -25,7 +23,7 @@ const checkout = async (req, res) => {
       studentId: req.user._id
     })
     await newJoin.save()
-    return res.redirect('/')
+    return res.redirect('/profile/course')
   }
   const listCourse = []
   courseId.forEach(async (item) => {
@@ -38,7 +36,7 @@ const checkout = async (req, res) => {
     const countCartDelete = await CartModel.deleteMany({ $and: [{ studentId: req.user._id }, { courseId: { $in: listCourse } }] })
     console.log(countCartDelete)
   })
-  return res.redirect('/')
+  return res.redirect('/profile/course')
 }
 module.exports = {
   cart,

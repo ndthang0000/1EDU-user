@@ -26,11 +26,11 @@
                     </li>
                 <% if(user){ %>
                     <div id="avatar-img" style="width: 50px;height: 50px; border-radius: 50%;overflow: hidden;cursor: pointer;">
-                        <img src="/images/avatar.png" alt="" style="width: 100%;" >
+                        <img src="<%= user.avatar %>" alt="" style="width: 100%;" >
                     </div>
                     <ul id="avatar-menu">
-                        <li><a href=""style="color: white;display: block;"><i class="bi bi-person" style="margin-right: 10px;"></i>Trang cá nhân</a> </li>
-                        <li> <a href="" style="color: white;display: block;"><i class="bi bi-grid-3x3-gap" style="margin-right: 10px;"></i>Quản lí khóa học</a></li>
+                        <li><a href="/profile/me"style="color: white;display: block;"><i class="bi bi-person" style="margin-right: 10px;"></i>Trang cá nhân</a> </li>
+                        <li> <a href="/profile/course" style="color: white;display: block;"><i class="bi bi-grid-3x3-gap" style="margin-right: 10px;"></i>Quản lí khóa học</a></li>
                         <li><a href="/auth/logout" style="color: white;display: block;"><i class="bi bi-box-arrow-right" style="margin-right: 14px;"></i>Đăng xuất</a></li>
                         <div style="position: absolute;width: 15px;height: 15px;transform: rotate(45deg);top: -3px;right: 14px;background-color: #942ca8;"></div>
                     </ul>

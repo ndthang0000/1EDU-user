@@ -20,8 +20,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <h2 style="font-weight: 600;"><%= course.name %></h2>
-                    <p >Fee : <span style="text-decoration: line-through;color: #444444;font-size: 24px;font-weight: 600;"><%= course.fee %></span> </p>
-                    <p >FeeDiscount : <span style="color: red;font-size: 24px;font-weight: 600;"><%= course.feeDiscount %></span> </p>
+                    <p >Fee : <span style="text-decoration: line-through;color: #444444;font-size: 24px;font-weight: 600;"><%= formatMoney(course.fee) %></span> </p>
+                    <p >FeeDiscount : <span style="color: red;font-size: 24px;font-weight: 600;"><%= formatMoney(course.feeDiscount)  %></span> </p>
                     <p> Quantity Student : <%= course.quantityStudent %></p>
                     <p>Created Time : <%= formatTime(course.createdAt) %></p>
                 </div>
@@ -70,5 +70,6 @@
 <script src="/js/scrollax.min.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/thang_custom.js"></script>
+
 </body>
 </html>

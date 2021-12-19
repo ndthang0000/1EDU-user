@@ -41,7 +41,7 @@
     </section>
 
 
-
+    <input type="hidden" name="userId" value="<%= user._id%>">
 <%- include('./partials/footer'); -%>
 
 
@@ -68,6 +68,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
+        updateCart()
         const message=window.location.search.split('=')[1]
         console.log(message)
         if(message==='FAILED'){
