@@ -57,10 +57,10 @@ const saveEditCourse = async (req, res) => {
   res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
 }
 const schedule = async (req, res) => {
+  console.log(req.body)
   const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
   const course = await CourseModel.findById(req.params.id)
-  console.log(course)
-  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime })
+  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime, newLinee: helper.newLinee })
 }
 const createSchedule = async (req, res) => {
   for (let i = 0; i < req.body.number; i++) {
@@ -72,7 +72,18 @@ const createSchedule = async (req, res) => {
   }
   const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
   const course = await CourseModel.findById(req.params.id)
-  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime })
+  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime, newLinee: helper.newLinee })
+}
+const scheduleEditContent = async (req, res) => {
+  try {
+    console.log(req.body.newContent)
+    console.log(req.params.id)
+    const schedule = await CourseSchedule.findOneAndUpdate({ _id: req.params.id }, { content: req.body.newContent })
+    console.log(schedule)
+    res.status(200).json({ success: true })
+  } catch (e) {
+    res.status(400).json({ success: false })
+  }
 }
 
 module.exports = {
@@ -83,5 +94,6 @@ module.exports = {
   saveCreate,
   saveEditCourse,
   schedule,
-  createSchedule
+  createSchedule,
+  scheduleEditContent
 }

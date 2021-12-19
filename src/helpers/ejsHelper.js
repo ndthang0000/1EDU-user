@@ -23,6 +23,9 @@ const formatMoney = (m) => {
 const newLine = (a) => {
   if (a) return a.replace(/\n/g, '<br /><i class="bi bi-check-lg" style="color:#d744f5; font-size: 20px;font-weight: 650;margin-left: 10px;"></i>')
 }
+const newLinee = (a) => {
+  if (a) return a.replace(/\n/g, '<br />')
+}
 const sum = (arr) => {
   return arr.reduce((total, item) => { return total + item.feeDiscount }, 0)
 }
@@ -39,5 +42,6 @@ module.exports = {
   newLine,
   sum,
   sumCartDiscount,
-  sumCart
+  sumCart,
+  newLinee
 }

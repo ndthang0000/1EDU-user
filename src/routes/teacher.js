@@ -4,8 +4,12 @@ const router = express.Router()
 const { teacherController } = require('../controllers')
 const { multerMiddleware } = require('../middlewares')
 
+// :id belong to course
+router.post('/:id/course/schedule/content/edit', teacherController.scheduleEditContent)
 router.get('/:id/course/schedule', teacherController.schedule)
 router.post('/:id/course/schedule', teacherController.createSchedule)
+
+// :id belong to teacher
 router.get('/:id/course/create', teacherController.create)
 router.post('/:id/course/create', multerMiddleware.single('image'), teacherController.saveCreate)
 router.get('/:id/course/:slug/edit', teacherController.editCourse)

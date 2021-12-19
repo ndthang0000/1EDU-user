@@ -48,7 +48,7 @@
     
 
 
-
+    
     <%- include('./partials/footer'); -%>
     <input type="hidden" name="userId" value="<%= user._id%>">
 
@@ -84,6 +84,9 @@
             renderCourseInfor(courseActive.dataset.courseid)
         }
         function renderCourseInfor(id){
+            courseInfo.innerHTM=`<div class="spinner-border text-success" role="status">
+                                    <span class="visually-hidden"></span>
+                                </div>`
             fetch(`${window.location.origin}/course/api/${id}`)
             .then(res=>res.json())
             .then(res=>{

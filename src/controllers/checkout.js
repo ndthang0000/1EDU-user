@@ -23,6 +23,7 @@ const checkout = async (req, res) => {
       studentId: req.user._id
     })
     await newJoin.save()
+    await CartModel.deleteOne({ studentId: req.user._id, courseId: courseId })
     return res.redirect('/profile/course')
   }
   const listCourse = []
