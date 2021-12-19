@@ -81,14 +81,19 @@
 					<div class="row mt-5">
 						<div class="col">
 							<div class="block-27">
-								<ul>
-									<li><a href="#">&lt;</a></li>
-									<li class="active"><a>1</a></li>
-									<li><a href="?page=2">2</a></li>
-									<li><a href="?page=3">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#">&gt;</a></li>
+								<ul class="pagination">
+									<li><a href="?page=<%= currentPage-1==0?1:currentPage-1 %>">&lt;</a></li>
+									<% for (let i = 1; i<quantity+1; i++) { %>
+										<li <%if(i==currentPage){ %> 
+											class="active"
+											<% } %>
+											>
+											<a href="?page=<%= i %>">
+												<%= i %>
+											</a>
+										</li>
+									<% } %>
+									<li><a href="?page=<%= currentPage==quantity?quantity:parseInt(currentPage)+1 %>">&gt;</a></li>
 								</ul>
 							</div>
 						</div>
@@ -98,7 +103,7 @@
 		</div>
 		</section>
 		<input type="hidden" name="userId" value="<%= user._id %>">
-
+		<input type="hidden" name="quantity" value="<%= quantity %>">
 
     <%- include('./partials/footer'); -%>
 
@@ -123,6 +128,13 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/thang_custom.js"></script>
-
+<script >
+	document.addEventListener('DOMContentLoaded',()=>{
+		const paginationEl=document.querySelector('.pagination')
+		console.log(paginationEl)
+		const quantityPage=parseInt(document.querySelector('input[name="quantity"]').value)
+		console.log(window.location)
+	})
+</script>
 </body>
 </html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); -%>
+    <link rel="stylesheet" href="/css/profile-course.css">
+</head>
+<body>
+    <%- include('./teachers/header'); -%>
+    
+    <section class="ftco-section bg-light" style="margin-top: 100px;">
+        <div class="container">
+            <div class="row justify-content-center pb-4">
+                <div class="col-md-12 heading-section text-center ftco-animate">
+                    <span class="subheading">Welcome to 1EDU</span>
+                    <h2 class="mb-4">Lịch học</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4">
+                    <img src="<%= course.imageUrl %>" alt="" width="100%">
+                    <p style="font-size: 22px;font-weight: 550;color: #555;"><%= course.name %></p>
+                    <p>Ngày bắt đầu : <%= formatTime(course.startDate) %></p>
+                </div>
+                <div class="col-md-8 col-lg-8">
+                    
+                    <% if(allSchedule.length==0){ %>
+                        <div style="font-weight: 600;color: black;font-size: 18px;">Chưa có lịch học nào</div> 
+                        <form action="" method="post">
+                            <input type="hidden" name="number"value="<%= course.numberLesson %>">
+                            <button style="background-color: rgb(174, 43, 226);color:white;padding: 10px 20px; display: inline-block;border-radius: 20px;border:none;outline: none;">Tạo <%= course.numberLesson %> bài học</button>
+                        </form>
+                    <%}%>
+                    <div class="container" style="margin-bottom: 30px;">
+                        <div class="row">
+                            <div class="col-lg-12 mx-auto">
+                                <div id="accordionExample" class="accordion shadow">
+                                    <% allSchedule.forEach(item=>{ %>
+                                        <div class="card" style="padding: 8px 10px;">
+                                            <div id="heading<%= item.seq%>" class="card-header bg-white shadow-sm border-0" style="padding: 5px 15px;">
+                                                <h6 class="mb-0 font-weight-bold">
+                                                    <a href="#" data-toggle="collapse" data-target="#collapse<%= item.seq%>" aria-expanded="false" aria-controls="collapse<%= item.seq%>" 
+                                                    class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">
+                                                    Bài học #<%= item.seq+1 %></a>
+                                                </h6>
+                                                <div><%= formatTime(item.date)%></div>
+                                            </div>
+                                            <div id="collapse<%= item.seq%>" aria-labelledby="heading<%= item.seq%>" data-parent="#accordionExample" class="collapse">
+                                                <div class="card-body p-5">
+                                                    <p class="font-weight-light m-0">
+                                                        <%= item.content%>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>    
+        </div>
+    </section>
+
+
+
+    <%- include('./partials/footer'); -%>
+    <input type="hidden" name="userId" value="<%= user._id%>">
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/thang_custom.js"></script>
+
+</body>
+</html>

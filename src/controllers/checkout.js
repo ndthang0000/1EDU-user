@@ -23,7 +23,7 @@ const checkout = async (req, res) => {
       studentId: req.user._id
     })
     await newJoin.save()
-    return res.redirect('/')
+    return res.redirect('/profile/course')
   }
   const listCourse = []
   courseId.forEach(async (item) => {
@@ -36,7 +36,7 @@ const checkout = async (req, res) => {
     const countCartDelete = await CartModel.deleteMany({ $and: [{ studentId: req.user._id }, { courseId: { $in: listCourse } }] })
     console.log(countCartDelete)
   })
-  return res.redirect('/')
+  return res.redirect('/profile/course')
 }
 module.exports = {
   cart,

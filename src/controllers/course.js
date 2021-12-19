@@ -1,12 +1,23 @@
-const { CourseModel } = require('../models')
+const { CourseModel, StudentCourseModel, CourseSchedule } = require('../models')
 const { helper } = require('../helpers')
 const home = async (req, res) => {
-  const { page } = req.body
+  let { page } = req.query
+  if (!page) {
+    page = 1
+  }
   try {
-    const allCourse = await CourseModel.find({}).sort({ updatedAt: -1 }).populate('teacherId').limit(9).skip(page || 0)
+    const allCourse =
+    await CourseModel
+      .find({}).sort({ updatedAt: -1 })
+      .populate('teacherId')
+      .limit(6).skip(page * 6 - 6 || 0)
+    const quantity = await CourseModel.count()
+    console.log(quantity)
     res.render('course',
       {
         allCourse,
+        currentPage: page,
+        quantity: parseInt(quantity / 6) + 1,
         formatTime: helper.formatTime,
         formatMoney: helper.formatMoney
       })
@@ -41,10 +52,28 @@ const getArray = async (req, res) => {
   const allCourse = await CourseModel.find({ _id: cart })
   res.status(200).json({ allCourse, success: true })
 }
+const getOne = async (req, res) => {
+  const { id } = req.params
+  const course = await StudentCourseModel.findOne({ courseId: id }).populate('courseId')
+  if (course) {
+    return res.status(200).json({ course, success: true })
+  }
+  res.status(400).json({ success: false })
+}
+const getSchedule = async (req, res) => {
+  try {
+    const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
+    res.status(200).json({ success: true, allSchedule })
+  } catch (e) {
+    return res.json({ success: false })
+  }
+}
 
 module.exports = {
   home,
   search,
   detail,
-  getArray
+  getArray,
+  getOne,
+  getSchedule
 }

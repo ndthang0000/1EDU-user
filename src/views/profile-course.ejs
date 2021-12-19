@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head'); -%>
+    <link rel="stylesheet" href="/css/profile-course.css">
+</head>
+<body>
+    <%- include('./partials/header',{check:true}); -%>
+
+    <div class="container" style="margin-top: 200px;">
+        <div class="row">
+            <div class="col-lg-4 sidebar">
+                <h3 style="color: #4986fc;">Khóa học của bạn</h3> 
+                <% allCourse.forEach((item,i)=>{ %>
+                    <div style="margin-left: 30px; color: #555;cursor: pointer; font-weight: 500;margin-bottom: 15px;"
+                        data-courseId="<%= item.courseId._id %>"
+                        <% if(i==0){ %>
+                            class="course-active"
+                        <% } %>
+                        id="course-item"
+                        >
+                        <i class="bi bi-app-indicator"></i>
+                        <%= item.courseId.name %>
+                    </div>
+                <% }) %>
+                <% if(allCourse.length==0){ %>
+                    <div>Bạn chưa đăng ký khóa học nào</div>
+                    <a href="/course"> Tìm khóa học</a>
+                    <%}%>
+            </div>
+            <div class="col-lg-8" id="course-content">
+                <div class="flex">
+                    <!-- #include from js -->
+                </div>
+                <div class="container" style="margin-top: 30px;margin-bottom: 30px;">
+                    <div class="row">
+                        <h3>Lịch học</h3>
+                        <div class="col-lg-12 mx-auto">
+                            <div id="accordionExample" class="accordion shadow">                              
+                                <!-- #include from js -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+
+    <%- include('./partials/footer'); -%>
+    <input type="hidden" name="userId" value="<%= user._id%>">
+
+
+<!-- loader -->
+<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
+
+<script src="/js/jquery.min.js"></script>
+<script src="/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/js/popper.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.stellar.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/bootstrap-datepicker.js"></script>
+<script src="/js/scrollax.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
+<script src="/js/thang_custom.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        updateCart()
+        let courseItem=document.querySelectorAll('#course-item')
+        let courseActive=document.querySelector('.course-active')
+        let courseInfo=document.querySelector('.flex')
+        let scheduleEl=document.querySelector('#accordionExample')
+
+
+        if(courseActive){
+            renderCourseInfor(courseActive.dataset.courseid)
+        }
+        function renderCourseInfor(id){
+            fetch(`${window.location.origin}/course/api/${id}`)
+            .then(res=>res.json())
+            .then(res=>{
+                console.log(res)
+                if(res.success){
+                    let message=''
+                    if(res.course.rating.isRating){
+                        message='Đã đánh giá'+res.course.rating.point
+                    }
+                    else{
+                        message=`Chưa đánh giá`
+                    }
+                    let html=`
+                        <img src=${res.course.courseId.imageUrl} alt="" style="width: 400px;height: auto;">
+                        <div>
+                            <p>Khóa học: <span style="font-weight:650">${res.course.courseId.name}</span></p> 
+                            <p>Đánh giá: ${message}</p> 
+                        </div>                   
+                    `
+                    courseInfo.innerHTML=html
+
+                    fetch(`${window.location.origin}/course/api/schedule/${id}`)
+                    .then(res=>res.json())
+                    .then(res=>{
+                        if(res.success){
+                            console.log(res)
+                            let htmlContent=res.allSchedule.map(item=>{
+                                return `
+                                <div class="card" style="padding: 8px 10px;">
+                                    <div id="heading${item.seq}" class="card-header bg-white shadow-sm border-0" style="padding: 5px 15px;">
+                                        <h6 class="mb-0 font-weight-bold">
+                                            <a href="#" data-toggle="collapse" data-target="#collapse${item.seq}" aria-expanded="false" aria-controls="collapse${item.seq}" 
+                                            class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">
+                                            Bài học #${item.seq+1}</a>
+                                        </h6>
+                                        <div> ${moment(item.date).format('LL')}</div>
+                                    </div>
+                                    <div id="collapse${item.seq}" aria-labelledby="heading${item.seq}" data-parent="#accordionExample" class="collapse">
+                                        <div class="card-body p-5">
+                                            <p class="font-weight-light m-0">
+                                                ${item.content}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>`
+                            }).join(' ')
+                            scheduleEl.innerHTML= htmlContent   
+                            if(res.allSchedule.length==0){
+                                scheduleEl.innerHTML= `<div style="padding:15px">Giáo viên chưa tạo lịch học</div>
+                                                        `  
+                            }
+                        }
+                    })
+                }
+            })
+        }
+        courseItem.forEach(item=>{
+            item.addEventListener('click',(e)=>{
+                courseItem.forEach(itemmm=>{
+                    itemmm.classList.remove('course-active')
+                })
+                e.target.classList.add('course-active')
+                renderCourseInfor(e.target.dataset.courseid)
+            })
+        })
+    })
+
+</script>
+</body>
+</html>

@@ -201,3 +201,13 @@
   width: 90px !important;
   height: auto !important;
 }
+.course-active {
+  color: #bb24da !important;
+  font-weight: 650 !important;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  padding: 15px;
+}

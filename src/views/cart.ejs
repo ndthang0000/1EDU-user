@@ -232,7 +232,7 @@
                     return item!==e.target.dataset.courseid
                 })
                 localStorage.setItem('cart',JSON.stringify(currentCart))
-
+                updateCart()
                 console.log(sumDisEle)
                 console.log(sumEle)
                 spanEl[0].innerText='-'+formatMoney((parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)),'đ')

@@ -1,4 +1,4 @@
-const { CourseModel } = require('../models')
+const { CourseModel, CourseSchedule } = require('../models')
 const { helper } = require('../helpers/')
 
 const home = async (req, res) => {
@@ -20,7 +20,7 @@ const editCourse = async (req, res) => {
 const detailCourse = async (req, res) => {
   const { id, slug } = req.params
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
-  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine })
+  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
 }
 
 const saveCreate = async (req, res) => {
@@ -37,7 +37,7 @@ const saveCreate = async (req, res) => {
   })
   await newCourse.save()
 
-  res.render('teacher-course-detail', { course: newCourse, formatTime: helper.formatTime })
+  res.render('teacher-course-detail', { course: newCourse, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
 }
 
 const saveEditCourse = async (req, res) => {
@@ -54,7 +54,25 @@ const saveEditCourse = async (req, res) => {
     course.imageUrl = '/uploads/' + req.file.filename
   }
   await course.save()
-  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine })
+  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
+}
+const schedule = async (req, res) => {
+  const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
+  const course = await CourseModel.findById(req.params.id)
+  console.log(course)
+  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime })
+}
+const createSchedule = async (req, res) => {
+  for (let i = 0; i < req.body.number; i++) {
+    const newSchedule = await CourseSchedule({
+      seq: i,
+      courseId: req.params.id
+    })
+    await newSchedule.save()
+  }
+  const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
+  const course = await CourseModel.findById(req.params.id)
+  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime })
 }
 
 module.exports = {
@@ -63,5 +81,7 @@ module.exports = {
   editCourse,
   detailCourse,
   saveCreate,
-  saveEditCourse
+  saveEditCourse,
+  schedule,
+  createSchedule
 }
