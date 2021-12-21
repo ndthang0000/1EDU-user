@@ -13,7 +13,7 @@
     <form action="/checkout" method="post" class="container">
             <div class='window'>
                 <div class='order-info'>
-                    <div class='order-info-content'>
+                    <div class='order-info-content scrollbar' id="style-6">
                         <h2>Thanh toán</h2>
                         <% allCourse.forEach(function(name) { %>
                         <div class='line'></div>
@@ -81,7 +81,7 @@
                         </td>
                         </tr>
                     </table>
-                    <a style="background-color: #888;text-align: center;padding: 10px;cursor: pointer;border-radius: 10px;font-size: 16px;font-weight: 550;margin-top: 30px;">Quay lại giỏ hàng</a>
+                    <a href="/cart" style="background-color: #888;text-align: center;padding: 10px;cursor: pointer;border-radius: 10px;font-size: 16px;font-weight: 550;margin-top: 30px;color: rgb(51, 63, 228);">Quay lại giỏ hàng</a>
                     <button class='pay-btn' style="text-align: center;">Checkout</button>
         
                     </div>
