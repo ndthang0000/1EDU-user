@@ -206,15 +206,6 @@
                         `
                     }).join()
                     document.querySelector('tbody').innerHTML=html
-
-                    // sumDisEle.value=parseInt(res.allCourse.reduce((total,item)=>{
-                    //     return total+item.fee-item.feeDiscount
-                    // },0))
-                    // console.log(sumDisEle)
-                    // console.log(sumEle)
-                    // sumEle.value=parseInt(res.allCourse.reduce((total,item)=>{
-                    //     return total+item.feeDiscount
-                    // },0))
                     let sumsub=res.allCourse.reduce((total,item)=>{
                         return total+item.fee-item.feeDiscount
                     },0)
@@ -277,7 +268,6 @@
                             currentCart.quantity-=1
                             localStorage.setItem('cartLength',JSON.stringify(currentCart))
                             renderCartLength()
-
                             spanEl[0].innerText='-'+formatMoney((parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)),'đ')
                             spanEl[1].innerText=formatMoney(parseInt(sumEle.value)-parseInt(e.target.dataset.feediscount),'đ')
                             sumDisEle.value=parseInt(sumDisEle.value)+parseInt(e.target.dataset.feediscount)-parseInt(e.target.dataset.fee)

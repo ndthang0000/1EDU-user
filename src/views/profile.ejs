@@ -12,8 +12,10 @@
         <form class="row" method="post" enctype="multipart/form-data">
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5" id="avatar-img"style="position: relative;">
-                    <img class="rounded-circle mt-5" width="150px" height="150px" 
-                    src="<%= user.avatar%>">
+                    <div style="width: 150px;height: 150px; border-radius: 50%; overflow: hidden;display: flex;align-items: center;">
+                        <img  width="100%" height="auto" 
+                        src="<%= user.avatar%>" >
+                    </div>
                     <span class="font-weight-bold"><%= user.name%></span>
                     <span class="text-black-50"><%= user.email%></span><span> </span>
                     <i class="bi bi-pencil-fill" style="position: absolute;">

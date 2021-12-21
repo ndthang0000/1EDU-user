@@ -1,4 +1,4 @@
-const { CartModel } = require('../models')
+const { CartModel, StudentCourseModel } = require('../models')
 const { helper } = require('../helpers')
 const home = async (req, res) => {
   if (req.user) {
@@ -16,8 +16,12 @@ const cart = async (req, res) => {
 const add = async (req, res) => {
   const { courseId, studentId } = req.body
   const oldCart = await CartModel.findOne({ courseId, studentId })
+  const joinCart = await StudentCourseModel.findOne({ courseId, studentId })
   if (oldCart) {
-    return res.status(400).json({ success: false })
+    return res.status(400).json({ success: false, message: 'Khóa học đã tồn tại trong giỏ hàng' })
+  }
+  if (joinCart) {
+    return res.status(400).json({ success: false, message: 'Bạn đã đăng ký khóa học này' })
   }
   const newCart = new CartModel({
     courseId,

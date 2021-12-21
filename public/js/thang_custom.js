@@ -56,11 +56,12 @@ function formatMoney(n, currency) {
 
 function showToast(image,text,check){
     let bg=''
-    if(!check){
-        bg='linear-gradient(180deg, #ffffff 0%, #ff8262 50%, #FF0000 100%);'
+    console.log(check)
+    if(check==2){
+        bg='linear-gradient(147deg, rgb(255, 229, 59) 0%, rgb(255, 37, 37) 74%)'
     }
     else{
-        bg="linear-gradient(0deg, rgb(217, 175, 217) 0%, rgb(151, 217, 225) 100%);"
+        bg="linear-gradient(135deg, #ce4be8 0%, #207ce5 100%)"
     }
     Toastify({
         text: text,
@@ -93,6 +94,7 @@ function addCart(e){
         })
         .then(res=>res.json())
         .then(res=>{
+            console.log(res)
             if (res.success){
                 let currentCart=JSON.parse(localStorage.getItem('cartLength'))
                 currentCart.quantity+=1
@@ -101,7 +103,7 @@ function addCart(e){
                 showToast(e.target.dataset.image,'Thêm vào giỏ hàng thành công')
             }
             else{
-                showToast(e.target.dataset.image,'Khóa học đã tồn tại trong giỏ hàng',false)
+                showToast(e.target.dataset.image,res.message,2)
             }
         })
     }
