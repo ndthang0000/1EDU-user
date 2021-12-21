@@ -7,10 +7,10 @@ const home = async (req, res) => {
   }
   try {
     const allCourse =
-    await CourseModel
-      .find({}).sort({ updatedAt: -1 })
-      .populate('teacherId')
-      .limit(6).skip(page * 6 - 6 || 0)
+      await CourseModel
+        .find({}).sort({ updatedAt: -1 })
+        .populate('teacherId')
+        .limit(6).skip(page * 6 - 6 || 0)
     const quantity = await CourseModel.count()
     const category = await CategoryModel.find({})
     const allTeacher = await UserModel.find({ role: 1 })
