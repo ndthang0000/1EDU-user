@@ -16,6 +16,7 @@ const Course = new Schema({
   numberLesson: Number,
   imageUrl: { type: String, required: true },
   rating: { point: { type: Number, default: 0 }, quantity: { type: Number, default: 0 } },
+  category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   teacherId: { type: Schema.Types.ObjectId, ref: 'User' },
   slug: { type: String, slug: 'name', unique: true }
 }, { timestamps: true })

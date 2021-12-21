@@ -1,4 +1,4 @@
-const { CourseModel, StudentCourseModel, CourseSchedule } = require('../models')
+const { CourseModel, StudentCourseModel, CourseSchedule, UserModel, CategoryModel } = require('../models')
 const { helper } = require('../helpers')
 const home = async (req, res) => {
   let { page } = req.query
@@ -12,10 +12,13 @@ const home = async (req, res) => {
       .populate('teacherId')
       .limit(6).skip(page * 6 - 6 || 0)
     const quantity = await CourseModel.count()
-    console.log(quantity)
+    const category = await CategoryModel.find({})
+    const allTeacher = await UserModel.find({ role: 1 })
     res.render('course',
       {
         allCourse,
+        category,
+        allTeacher,
         currentPage: page,
         quantity: parseInt(quantity / 6) + 1,
         formatTime: helper.formatTime,
@@ -26,17 +29,43 @@ const home = async (req, res) => {
   }
 }
 const search = async (req, res) => {
+  let { search, category, teacher, type } = req.query
+
+  if (!Array.isArray(category)) {
+    if (category !== '') {
+      category = [category]
+    } else {
+      category = []
+    }
+  }
+  if (!Array.isArray(teacher) && teacher !== '') {
+    teacher = [teacher]
+  }
+  if (!Array.isArray(type) && type !== '') {
+    type = [type]
+  }
   try {
     const listCourse = []
-    const keyword = req.query.search
-    const allCourse = await CourseModel.find({}).sort({ updatedAt: -1 }).populate('teacherId').limit(9)
+    const allCourse = await CourseModel.find({}).sort({ updatedAt: -1 }).populate('teacherId').limit(6)
+    const category = await CategoryModel.find({})
     //
     for (const i in allCourse) {
-      if (allCourse[i].name.indexOf(keyword) !== -1 || allCourse[i].des.indexOf(keyword) !== -1 || allCourse[i].teacherId.name.indexOf(keyword) !== -1) {
+      if (allCourse[i].name.toLowerCase().indexOf(search) !== -1 ||
+        allCourse[i]?.des.toLowerCase().indexOf(search) !== -1 ||
+        allCourse[i].teacherId.name.toLowerCase().indexOf(search) !== -1) {
         listCourse.push(allCourse[i])
       }
     }
-    res.render('course', { allCourse: listCourse, formatTime: helper.formatTime, formatMoney: helper.formatMoney })
+    const allTeacher = await UserModel.find({ role: 1 })
+    res.render('course', {
+      allCourse: listCourse,
+      category,
+      allTeacher,
+      formatTime: helper.formatTime,
+      formatMoney: helper.formatMoney,
+      currentPage: 1,
+      quantity: listCourse.length
+    })
   } catch (e) {
     console.log(e)
   }
