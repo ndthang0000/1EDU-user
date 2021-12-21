@@ -19,6 +19,9 @@
                     <img src="<%= course.imageUrl %>" alt="" style="height: auto;width: 100%;border-radius: 5px;box-shadow: 1px 2px 1px 2px rgb(240, 233, 233);">
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-12" style="padding:30px;width: 300px;margin: 15px auto;" >
+                    <% course.categoryId.forEach(item=>{ %>
+                        <a class="hastag" href="/course/search?search=&category=<%= item.tittle %>"><%= item.tittle %></a>
+                    <% }) %>
                     <div class="rating" style="font-size: 32px;color:rgb(214, 214, 35)" >
                         <span id="star-1">☆</span><span id="star-2">☆</span><span id="star-3">☆</span><span id="star-4">☆</span><span id="star-5">☆</span>
                     </div>

@@ -1,4 +1,4 @@
-const { CourseModel, CourseSchedule } = require('../models')
+const { CourseModel, CourseSchedule, LevelModel, CategoryModel } = require('../models')
 const { helper } = require('../helpers/')
 
 const home = async (req, res) => {
@@ -8,13 +8,17 @@ const home = async (req, res) => {
 }
 
 const create = async (req, res) => {
-  res.render('teacher-course-create')
+  const category = await CategoryModel.find({})
+  const type = await LevelModel.find({})
+  res.render('teacher-course-create', { category, type })
 }
 
 const editCourse = async (req, res) => {
   const { id, slug } = req.params
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
-  res.render('teacher-course-edit', { course, formatTime: helper.formatTimeType2 })
+  const category = await CategoryModel.find({})
+  const type = await LevelModel.find({})
+  res.render('teacher-course-edit', { course, category, type, formatTime: helper.formatTimeType2 })
 }
 
 const detailCourse = async (req, res) => {
@@ -24,14 +28,29 @@ const detailCourse = async (req, res) => {
 }
 
 const saveCreate = async (req, res) => {
-  const fee = parseInt(req.body.fee)
-  const feeDiscount = parseInt(req.body.feeDiscount)
-  const numberLesson = parseInt(req.body.numberLesson)
+  let category = []
+  let level = []
+  if (!Array.isArray(req.body?.category)) {
+    if (req.body?.category) {
+      category.push(req.body.category)
+    }
+  } else {
+    category = req.body.category
+  }
+  if (!Array.isArray(req.body?.level)) {
+    if (req.body?.level) {
+      level.push(req.body.level)
+    }
+  } else {
+    level = req.body.level
+  }
   const newCourse = new CourseModel({
     ...req.body,
-    fee,
-    feeDiscount,
-    numberLesson,
+    categoryId: category,
+    levelId: level,
+    fee: parseInt(req.body.fee),
+    feeDiscount: parseInt(req.body.feeDiscount),
+    numberLesson: parseInt(req.body.numberLesson),
     imageUrl: '/uploads/' + req.file.filename,
     teacherId: req.params.id
   })
@@ -42,7 +61,25 @@ const saveCreate = async (req, res) => {
 
 const saveEditCourse = async (req, res) => {
   const { id, slug } = req.params
+  let category = []
+  let level = []
+  if (!Array.isArray(req.body?.category)) {
+    if (req.body?.category) {
+      category.push(req.body.category)
+    }
+  } else {
+    category = req.body.category
+  }
+  if (!Array.isArray(req.body?.level)) {
+    if (req.body?.level) {
+      level.push(req.body.level)
+    }
+  } else {
+    level = req.body.level
+  }
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
+  course.levelId = level
+  course.categoryId = category
   course.fee = parseInt(req.body.fee)
   course.feeDiscount = parseInt(req.body.feeDiscount)
   course.numberLesson = parseInt(req.body.numberLesson)

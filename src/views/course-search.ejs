@@ -36,7 +36,13 @@
 						<h3 class="heading-sidebar">Course Category</h3>
 						<div action="/course/search" class="browse-form">
 							<% category.forEach((item,index)=>{ %>
-								<label for="option-category-<%= index %>"><input type="checkbox" id="option-category-<%= index %>" name="category" value="<%= item.tittle%>"><%= item.tittle%> </label><br>
+								<label for="option-category-<%= index %>"><input type="checkbox" id="option-category-<%= index %>" name="category" value="<%= item.tittle%>"
+									<% newCategory.forEach(itemm=>{ %>
+										<% if(itemm===item._id ){ %>
+											checked
+											<% } %>
+									<% }) %>
+									><%= item.tittle%> </label><br>
 							<% }) %>
 							
 						</div>
@@ -46,7 +52,14 @@
 						<h3 class="heading-sidebar">Course Instructor</h3>
 						<div class="browse-form">
 							<% allTeacher.forEach((item,index)=>{ %>
-								<label for="option-instructor-<%= index %>"><input type="checkbox" id="option-instructor-<%= index %>" name="teacher" value="<%= item.name%>" ><%= item.name%></label><br>
+								<label for="option-instructor-<%= index %>"><input type="checkbox" id="option-instructor-<%= index %>" name="teacher" value="<%= item.name%>"
+									<% newTeacher.forEach(itemm=>{ %>
+										<% if(itemm===item._id){ %>
+											checked
+											<% } %>
+									<% }) %>
+									>
+									<%= item.name%></label><br>
 							<% }) %>	
 						</div>
 					</div>
@@ -55,7 +68,15 @@
 						<h3 class="heading-sidebar">Course Type</h3>
 						<div action="/course/search" class="browse-form">
 							<% level.forEach((item,index)=>{ %>
-								<label for="level-<%= index %>"><input type="checkbox" id="level-<%= index %>" name="type" value="<%= item.tittle%>" ><%= item.tittle%></label><br>
+								<label for="level-<%= index %>">
+									<input type="checkbox" id="level-<%= index %>" name="type" value="<%= item.tittle%>" 
+									<% newType.forEach(itemm=>{ %>
+										<% if(itemm===item._id){ %>
+											checked
+											<% } %>
+									<% }) %>
+									>
+									<%= item.tittle%></label><br>
 							<% }) %>
 						</div>
 					</div>

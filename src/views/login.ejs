@@ -70,7 +70,6 @@
     document.addEventListener('DOMContentLoaded',()=>{
         updateCart()
         const message=window.location.search.split('=')[1]
-        console.log(message)
         if(message==='FAILED'){
             document.querySelector('#err-email').textContent='Kiểm tra lại tài khoản và mật khẩu'
         }

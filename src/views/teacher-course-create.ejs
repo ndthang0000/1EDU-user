@@ -35,6 +35,26 @@
                             <label for="">Tên khóa học</label>
                             <input type="text" placeholder="Tên khóa học" required="true" name="name">
                         </div>
+                        <div class="form-group" style="flex-direction: column;"> 
+                            <div >Chủ đề</div>                        
+                                <% category.forEach(item=>{ %>
+                                    <div style="margin-left: 35px;display: flex;color: cornflowerblue;">
+                                        <label for="<%= item._id %>"><%= item.tittle %></label>
+                                    <input type="checkbox" name="category" style="width: 20px;height: 20px;" value="<%= item._id %>" >
+                                    </div>
+                                    
+                                <% }) %>
+                        </div>
+                        <div class="form-group" style="flex-direction: column;"> 
+                            <div >Level</div>                        
+                                <% type.forEach(item=>{ %>
+                                    <div style="margin-left: 35px;display: flex;color: cornflowerblue;">
+                                        <label for=""><%= item.tittle %></label>
+                                    <input type="checkbox" name="level" style="width: 20px;height: 20px;" value="<%= item._id %>">
+                                    </div>
+                                    
+                                <% }) %>
+                        </div>
                         <div class="form-group" style="position: relative;">
                             <label for="">Học phí </label>
                             <input type="text" placeholder="Giá bán" name="fee" required="true" pattern="[0-9]{1,15}">
@@ -52,7 +72,6 @@
                         <div class="form-group">
                             <label for="">Ngày kết thúc</label>
                             <div style="flex: 2;">
-
                                 <input type="date"  name="endDate" required="true" style="width: 100%;">
                                 <div id="err-date" style="color: red;display: block;"></div>
                             </div>
