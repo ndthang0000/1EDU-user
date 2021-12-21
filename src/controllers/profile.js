@@ -1,7 +1,7 @@
-const { UserModel, CourseModel, StudentCourseModel } = require('../models')
+const { UserModel, StudentCourseModel } = require('../models')
 
 const home = async (req, res) => {
-  const quantity = await CourseModel.count({ _id: req.user._id })
+  const quantity = await StudentCourseModel.count({ studentId: req.user._id })
   return res.render('profile', { quantity })
 }
 const saveProfile = async (req, res) => {
