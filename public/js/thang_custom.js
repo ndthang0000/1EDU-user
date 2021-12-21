@@ -35,7 +35,11 @@ function updateCart(){
     else{
         let cart=JSON.parse(localStorage.getItem('cart'))
         const quantityCount=document.querySelector('.cart-count') || false
-        quantityCount.innerText=cart.length
+        if(cart){
+            quantityCount.innerText=cart.length
+        }else{
+            quantityCount.innerText=0
+        }
     }
 }
 

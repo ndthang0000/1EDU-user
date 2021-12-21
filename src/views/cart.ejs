@@ -115,7 +115,7 @@
                                 </span>
                             </li>
                         </ul>
-                        <a href="/checkout" class="primary-btn">Thanh toán</a>
+                        <a href="/checkout" class="primary-btn" id="check-btn">Thanh toán</a>
                     </div>
                 </div>
             </div>
@@ -151,6 +151,13 @@
         let sumDisEle=document.querySelector('input[name="sumCartDiscount"]')
         let sumEle=document.querySelector('input[name="sumCart"]')
         const spanEl=document.querySelectorAll('.cart__total span')
+        let checkBtnEl=document.querySelector('#check-btn')
+
+        checkBtnEl.addEventListener('click',(e)=>{
+            if(!userId){
+                window.location.href=window.location.origin+'/login'
+            }
+        })
 
         if(!userId){
             let cart=JSON.parse(localStorage.getItem('cart'))
@@ -279,6 +286,7 @@
                     })
                 })
             })
+            
         }
         
 
