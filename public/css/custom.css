@@ -211,3 +211,12 @@
   gap: 30px;
   padding: 15px;
 }
+.hastag {
+  border-radius: 15px;
+  padding: 5px 12px;
+  color: rgb(0, 113, 240) !important;
+  background: rgb(221, 234, 255);
+  cursor: pointer;
+  display: inline-block;
+  margin: 3px;
+}

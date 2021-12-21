@@ -35,8 +35,8 @@
 					<div class="sidebar-box bg-white p-4 ftco-animate">
 						<h3 class="heading-sidebar">Course Category</h3>
 						<div action="/course/search" class="browse-form">
-							<% category.forEach(item=>{ %>
-								<label for="option-category-1"><input type="checkbox" id="option-category-1" name="category" value="<%= item.tittle%>"><%= item.tittle%> </label><br>
+							<% category.forEach((item,index)=>{ %>
+								<label for="option-category-<%= index %>"><input type="checkbox" id="option-category-<%= index %>" name="category" value="<%= item.tittle%>"><%= item.tittle%> </label><br>
 							<% }) %>
 							
 						</div>
@@ -45,8 +45,8 @@
 					<div class="sidebar-box bg-white p-4 ftco-animate">
 						<h3 class="heading-sidebar">Course Instructor</h3>
 						<div class="browse-form">
-							<% allTeacher.forEach(item=>{ %>
-								<label for="option-instructor-1"><input type="checkbox" id="option-instructor-1" name="teacher" value="<%= item.name%>" ><%= item.name%></label><br>
+							<% allTeacher.forEach((item,index)=>{ %>
+								<label for="option-instructor-<%= index %>"><input type="checkbox" id="option-instructor-<%= index %>" name="teacher" value="<%= item.name%>" ><%= item.name%></label><br>
 							<% }) %>	
 						</div>
 					</div>
@@ -54,9 +54,9 @@
 					<div class="sidebar-box bg-white p-4 ftco-animate">
 						<h3 class="heading-sidebar">Course Type</h3>
 						<div action="/course/search" class="browse-form">
-							<label for="option-course-type-1"><input type="checkbox" id="option-course-type-1" name="type" value="co-ban"> Basic</label><br>
-							<label for="option-course-type-2"><input type="checkbox" id="option-course-type-2" name="type" value="trung-binh"> Intermediate</label><br>
-							<label for="option-course-type-3"><input type="checkbox" id="option-course-type-3" name="type" value="nang-cao"> Advanced</label><br>
+							<% level.forEach((item,index)=>{ %>
+								<label for="level-<%= index %>"><input type="checkbox" id="level-<%= index %>" name="type" value="<%= item.tittle%>" ><%= item.tittle%></label><br>
+							<% }) %>
 						</div>
 					</div>
 					<button type="submit" style="outline: none;color:white;padding: 5px 20px; border: none;background: linear-gradient(135deg, #ce4be8 0%, #207ce5 100%);border-radius: 5px;text-align: center;"><i class="bi bi-funnel" style="margin-right: 10px;"></i>Lọc</button>

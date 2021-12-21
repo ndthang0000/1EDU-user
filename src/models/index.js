@@ -4,6 +4,7 @@ const StudentCourseModel = require('./StudentCourse')
 const CartModel = require('./Cart')
 const CourseSchedule = require('./CourseSchedule')
 const CategoryModel = require('./Category')
+const LevelModel = require('./Level')
 
 module.exports = {
   CourseModel,
@@ -11,5 +12,6 @@ module.exports = {
   StudentCourseModel,
   CartModel,
   CourseSchedule,
-  CategoryModel
+  CategoryModel,
+  LevelModel
 }
