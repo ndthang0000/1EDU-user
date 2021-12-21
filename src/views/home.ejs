@@ -512,7 +512,7 @@
         if(emailEl){
             emailEl.addEventListener('blur',(e)=>{
                 if(!validateEmail(e.target.value)){
-                    document.querySelector('#err-email').textContent='Email không hợp lệ ! '
+                    document.querySelector('#err-email').textContent='Email không hợp lệ  '
                 }
                 else{
                     isValidEmail=true
@@ -525,7 +525,7 @@
             confirmPasswordEl.addEventListener('input',(e)=>{
                 let password=passwordEl.value
                 if(password!==e.target.value){
-                    document.querySelector('#err-password').textContent='Kiểm tra lại password !! '
+                    document.querySelector('#err-password').textContent='Mật khẩu xác nhận không chính xác '
                 }else{
                     isValidPassword=true
                     document.querySelector('#err-password').textContent=''
@@ -551,17 +551,12 @@
                             height:"60px"
                         }
                         }).showToast();
-                        setTimeout(()=>{
-                            window.location.href=window.location.origin+'/auth/login'
-                        },1200)
                     return
                 }
                 let name=nameEl.value
                 let email=emailEl.value
                 let password=passwordEl.value
-                console.log(name)
-                console.log(email)
-                console.log(password)
+
                 fetch(`${URL}/auth/register`,
                 {
                     headers: {
