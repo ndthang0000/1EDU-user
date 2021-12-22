@@ -18,7 +18,7 @@
                 <div class="row" style="gap: 50px;justify-content: center;align-items: center;">
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div style="text-align: center;">Preview Image 300x200 </div>
-                        <div style="width: 300px; height: 200px; overflow: hidden; border: 3px dashed #34bb3b;margin:0px auto;">
+                        <div style="width: 300px; height: 200px; overflow: hidden; border: 3px dashed #34bb3b;margin:0px auto;display: flex;align-items: center;">
                             <img src="<%= course.imageUrl %>" alt="" id="img-review" style="width: 100%; display: flex;align-items: center;justify-content: center;">
                         </div>
                     </div>
@@ -64,14 +64,18 @@
                                     
                                 <% }) %>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="position: relative;">
                             <label for="">Học phí </label>
                             <input type="text" placeholder="Giá bán" name="fee" required="true" value="<%= course.fee %>">
-                            <span style="position: absolute;top: 12px; right:5%;color:red"></span>
+                            <span style="position: absolute;top: 12px; right:5%;color:red"><%= formatMoney(course.fee) %></span>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" style="position: relative;">
                             <label for="">Giảm giá</label>
-                            <input type="text" placeholder="Giá khuyến mãi" name="feeDiscount" required="true" value="<%= course.feeDiscount %>">
+                            <div style="flex: 2;">
+                                <input type="text" placeholder="Giá khuyến mãi" name="feeDiscount" required="true" value="<%= course.feeDiscount %>" style="width: 100%;">
+                                <span style="position: absolute;top: 12px; right:5%;color:red"><%= formatMoney(course.feeDiscount) %></span>
+                                <i id="err-price" style="color: red;font-size: 16px;"></i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Ngày bắt đầu </label>
@@ -133,6 +137,11 @@
         const imgEle=document.querySelector('#img-review')
         const inputEle=document.querySelector('input[type="file"]')
         let srcImg;
+        const feeEl=document.querySelector('input[name="fee"]')
+        const feeDiscountEl=document.querySelector('input[name="feeDiscount"]')
+        console.log(feeEl)
+        console.log(feeDiscountEl)
+
         inputEle.addEventListener('change',(e)=>{
             if(srcImg){
                 URL.revokeObjectURL(srcImg)
@@ -141,13 +150,13 @@
             srcImg=URL.createObjectURL(e.target.files[0])
             imgEle.src=srcImg
         })
-        const feeEl=document.querySelector('input[name="fee"]')
-        const feeDiscountEl=document.querySelector('input[name="feeDiscount"]')
+        
         feeEl.addEventListener('input',handleInput)
         feeDiscountEl.addEventListener('input',handleInput)
         function handleInput(e){
             let value=parseInt(e.target.value)
             value=formatMoney(value,'đ')
+            console.log(value)
             e.target.parentElement.querySelector('span').innerText=value
         }
         
@@ -155,12 +164,15 @@
         const formEl=document.querySelector('form')
         formEl.addEventListener('submit',(e)=>{
             e.preventDefault()
-            console.log('vo day')
+
             let start=new Date(document.querySelector('input[name="startDate"]').value)
             let end=new Date(document.querySelector('input[name="endDate"]').value)
-            console.log(start)
             if (end-start<0){
                 document.querySelector('#err-date').innerText='Ngày bắt đầu và kết thúc không hợp lệ'
+                return
+            }
+            if(parseInt(feeDiscountEl.value)>parseInt(feeEl.value)){
+                document.querySelector('#err-price').innerText='Giả giảm phải nhỏ hơn giá bán'
                 return
             }
             formEl.submit()

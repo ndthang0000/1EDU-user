@@ -3,6 +3,7 @@
 <head>
     <%- include('./partials/head'); -%>
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
     <%- include('./partials/header',{check:false}); -%>
@@ -13,7 +14,7 @@
             <div class="col-md-3 border-right">
                 <div class="d-flex flex-column align-items-center text-center p-3 py-5" id="avatar-img"style="position: relative;">
                     <div style="width: 150px;height: 150px; border-radius: 50%; overflow: hidden;display: flex;align-items: center;">
-                        <img  width="100%" height="auto" 
+                        <img  width="100%" height="auto" class="rounded-circle-a"
                         src="<%= user.avatar%>" >
                     </div>
                     <span class="font-weight-bold"><%= user.name%></span>
@@ -22,6 +23,7 @@
                         <input type="file" name="avatar" id="" style="position: absolute;top: 0;left: 0;width: 100%;height: 100%;opacity: 0;cursor: pointer;">
                     </i>
                 </div>
+                <div id="btn-image-save" style="background: linear-gradient(135deg, #ce4be8 0%, #207ce5 100%);text-align: center; color:white;padding: 8px 12px;margin-bottom: 20px;border-radius: 10px;display: none;cursor: pointer;">Lưu hình ảnh</div>
                 <div>
                     Số khóa học đã tham gia: <span style="color: #ce4be8;"><%= quantity %></span> 
                 </div>
@@ -109,20 +111,44 @@
 <script src="/js/jquery.animateNumber.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/scrollax.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/thang_custom.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
-        const imgEle=document.querySelector('.rounded-circle')
+        
+        const imgEle=document.querySelector('.rounded-circle-a')
         const inputEle=document.querySelector('input[type="file"]')
+        const btnSaveImage=document.querySelector('#btn-image-save')
         let srcImg;
+
         inputEle.addEventListener('change',(e)=>{
+            btnSaveImage.style.display='block'
             if(srcImg){
                 URL.revokeObjectURL(srcImg)
             }
             console.log(e.target.files[0])
             srcImg=URL.createObjectURL(e.target.files[0])
             imgEle.src=srcImg
+        })
+
+        btnSaveImage.addEventListener('click',(e)=>{
+            console.log(inputEle.files[0])
+            var data = new FormData()
+            data.append('avatar',inputEle.files[0])
+            fetch(`${window.location.origin}/profile/me/avatar`,
+            {
+                method: "POST",
+                body: data
+            })
+            .then(res=>res.json())
+            .then(res=>{
+                if(res.success){
+                    btnSaveImage.style.display='none'
+                    showToast('','Thay đổi avatar thành công',2)
+                }
+            })
+            .catch(function(res){ console.log(res) })
         })
     })
 </script>

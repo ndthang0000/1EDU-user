@@ -18,7 +18,7 @@ const editCourse = async (req, res) => {
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
   const category = await CategoryModel.find({})
   const type = await LevelModel.find({})
-  res.render('teacher-course-edit', { course, category, type, formatTime: helper.formatTimeType2 })
+  res.render('teacher-course-edit', { course, category, type, formatTime: helper.formatTimeType2, formatMoney: helper.formatMoney })
 }
 
 const detailCourse = async (req, res) => {

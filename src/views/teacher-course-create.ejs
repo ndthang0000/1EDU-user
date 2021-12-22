@@ -18,7 +18,7 @@
                 <div class="row" style="gap: 50px;justify-content: center;align-items: center;">
                     <div class="col-lg-4 col-md-6 col-sm-12">
                         <div style="text-align: center;">Preview Image 300x200 </div>
-                        <div style="width: 300px; height: 200px; overflow: hidden; border: 3px dashed #34bb3b;margin:0px auto;">
+                        <div style="width: 300px; height: 200px; overflow: hidden; border: 3px dashed #34bb3b;margin:0px auto;display: flex;align-items: center;">
                             <img src="" alt="" id="img-review" style="width: 100%; display: flex;align-items: center;justify-content: center;">
                         </div>
                     </div>
@@ -62,8 +62,11 @@
                         </div>
                         <div class="form-group" style="position: relative;">
                             <label for="">Giảm giá</label>
-                            <input type="text" placeholder="Giá khuyến mãi" name="feeDiscount" required="true" pattern="[0-9]{1,15}">
-                            <span style="position: absolute;top: 12px; right:5%;color:red"></span>
+                            <div style="flex: 2;">
+                                <input type="text" placeholder="Giá khuyến mãi" name="feeDiscount" required="true" style="width: 100%;"pattern="[0-9]{1,15}">
+                                <span style="position: absolute;top: 12px; right:5%;color:red"></span>
+                                <i id="err-price" style="color: red;font-size: 16px;"></i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="">Ngày bắt đầu </label>
@@ -124,7 +127,10 @@
     document.addEventListener('DOMContentLoaded',()=>{
         const imgEle=document.querySelector('#img-review')
         const inputEle=document.querySelector('input[type="file"]')
+        const feeEl=document.querySelector('input[name="fee"]')
+        const feeDiscountEl=document.querySelector('input[name="feeDiscount"]')
         let srcImg;
+
         inputEle.addEventListener('change',(e)=>{
             if(srcImg){
                 URL.revokeObjectURL(srcImg)
@@ -135,14 +141,16 @@
         })
 
 
-        const feeEl=document.querySelector('input[name="fee"]')
-        const feeDiscountEl=document.querySelector('input[name="feeDiscount"]')
+        
+
         feeEl.addEventListener('input',handleInput)
         feeDiscountEl.addEventListener('input',handleInput)
         function handleInput(e){
             let value=parseInt(e.target.value)
+            console.log(value)
             value=formatMoney(value,'đ')
             e.target.parentElement.querySelector('span').innerText=value
+            console.log(value)
         }
         
 
@@ -155,6 +163,10 @@
             console.log(start)
             if (end-start<0){
                 document.querySelector('#err-date').innerText='Ngày bắt đầu và kết thúc không hợp lệ'
+                return
+            }
+            if(parseInt(feeDiscountEl.value)>parseInt(feeEl.value)){
+                document.querySelector('#err-price').innerText='Giả giảm phải nhỏ hơn giá bán'
                 return
             }
             formEl.submit()
