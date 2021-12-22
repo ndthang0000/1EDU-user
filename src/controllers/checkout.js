@@ -24,6 +24,9 @@ const checkout = async (req, res) => {
     })
     await newJoin.save()
     await CartModel.deleteOne({ studentId: req.user._id, courseId: courseId })
+    const findCourse = await CourseModel.findOne({ _id: courseId })
+    findCourse.quantityStudent = findCourse.quantityStudent + 1
+    await findCourse.save()
     return res.redirect('/profile/course')
   }
   const listCourse = []
@@ -34,9 +37,12 @@ const checkout = async (req, res) => {
       studentId: req.user._id
     })
     await newJoin.save()
-    const countCartDelete = await CartModel.deleteMany({ $and: [{ studentId: req.user._id }, { courseId: { $in: listCourse } }] })
-    console.log(countCartDelete)
+    const findCourse = await CourseModel.findOne({ _id: item })
+    findCourse.quantityStudent = findCourse.quantityStudent + 1
+    await findCourse.save()
   })
+  const countCartDelete = await CartModel.deleteMany({ $and: [{ studentId: req.user._id }, { courseId: { $in: listCourse } }] })
+  console.log('Đã xóa : ', countCartDelete)
   return res.redirect('/profile/course')
 }
 module.exports = {
