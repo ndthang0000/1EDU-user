@@ -128,7 +128,7 @@ const search = async (req, res) => {
         listCourse.push(allCourse[i])
       }
     }
-    console.log(newType)
+    console.log(category)
     res.render('course-search', {
       allCourse: listCourse,
       category: categoryList,
