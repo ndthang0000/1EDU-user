@@ -10,6 +10,7 @@
 <head>
     <%- include('./partials/head'); -%>
     <link rel="stylesheet" href="/css/cart.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
     <%- include('./partials/header',{check:true}); -%>
@@ -141,6 +142,7 @@
 <script src="/js/jquery.animateNumber.min.js"></script>
 <script src="/js/bootstrap-datepicker.js"></script>
 <script src="/js/scrollax.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/thang_custom.js"></script>
 
@@ -155,7 +157,11 @@
 
         checkBtnEl.addEventListener('click',(e)=>{
             if(!userId){
-                window.location.href=window.location.origin+'/login'
+                e.preventDefault()
+                showToast('','Bạn phải đăng nhập tài khoản',2)
+                setTimeout(()=>{window.location.href=window.location.origin+'/auth/login'},1000)
+                
+                return 
             }
         })
 

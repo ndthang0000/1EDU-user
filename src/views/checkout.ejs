@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="/css/checkout.css">
     <title>1EDU - Live course </title>
 </head>
@@ -90,10 +91,23 @@
             </div>
     </form>
     <input type="hidden" name="userId" value="<%= user._id%>">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="/js/thang_custom.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded',()=>{
             updateCart()
+            const joinCourseBtn=document.querySelector('.pay-btn')
+            const userId=document.querySelector('input[name="userId"]').value
+
+            joinCourseBtn.addEventListener('click',(e)=>{
+                if(!userId){
+                    e.preventDefault()
+                    showToast('','Bạn phải đăng nhập tài khoản',2)
+                    setTimeout(()=>{window.location.href=window.location.origin+'/auth/login'},1000)
+                    
+                    return 
+                }
+            })
         })
     </script>
 </body>
