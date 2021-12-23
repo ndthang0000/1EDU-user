@@ -97,7 +97,7 @@ const schedule = async (req, res) => {
   console.log(req.body)
   const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
   const course = await CourseModel.findById(req.params.id)
-  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime, newLinee: helper.newLinee })
+  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTimeType2, newLinee: helper.newLinee })
 }
 const createSchedule = async (req, res) => {
   for (let i = 0; i < req.body.number; i++) {
@@ -109,12 +109,10 @@ const createSchedule = async (req, res) => {
   }
   const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
   const course = await CourseModel.findById(req.params.id)
-  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTime, newLinee: helper.newLinee })
+  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTimeType2, newLinee: helper.newLinee })
 }
 const scheduleEditContent = async (req, res) => {
   try {
-    console.log(req.body.newContent)
-    console.log(req.params.id)
     const schedule = await CourseSchedule.findOneAndUpdate({ _id: req.params.id }, { content: req.body.newContent })
     console.log(schedule)
     res.status(200).json({ success: true })
@@ -122,7 +120,28 @@ const scheduleEditContent = async (req, res) => {
     res.status(400).json({ success: false })
   }
 }
-
+const scheduleEditDate = async (req, res) => {
+  try {
+    const schedule = await CourseSchedule.findOne({ _id: req.params.id })
+    if (schedule.seq === 0) {
+      if (new Date(req.body.newDate) - new Date() < 0) {
+        return res.status(400).json({ success: false })
+      }
+      schedule.date = req.body.newDate
+      await schedule.save()
+      return res.status(200).json({ success: true })
+    }
+    const preSchedule = await CourseSchedule.findOne({ courseId: schedule.courseId, seq: schedule.seq - 1 })
+    if (new Date(req.body.newDate) - new Date(preSchedule.date) < 0) {
+      return res.status(400).json({ success: false })
+    }
+    schedule.date = req.body.newDate
+    await schedule.save()
+    res.status(200).json({ success: true })
+  } catch (e) {
+    res.status(400).json({ success: false })
+  }
+}
 module.exports = {
   home,
   create,
@@ -132,5 +151,6 @@ module.exports = {
   saveEditCourse,
   schedule,
   createSchedule,
-  scheduleEditContent
+  scheduleEditContent,
+  scheduleEditDate
 }
