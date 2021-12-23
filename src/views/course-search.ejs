@@ -98,18 +98,18 @@
 						<div class="col">
 							<div class="block-27">
 								<ul class="pagination">
-									<li><a href="?page=<%= currentPage-1==0?1:currentPage-1 %>">&lt;</a></li>
+									<li><a href="?page=<%= currentPage-1==0?1:currentPage-1 %>" data-href="&page=<%= currentPage-1==0?1:currentPage-1 %>">&lt;</a></li>
 									<% for (let i = 1; i<quantity+1; i++) { %>
 										<li <%if(i==currentPage){ %> 
 											class="active"
 											<% } %>
 											>
-											<a href="?page=<%= i %>">
+											<a href="?page=<%= i %>" data-href="&page=<%= i %>">
 												<%= i %>
 											</a>
 										</li>
 									<% } %>
-									<li><a href="?page=<%= currentPage==quantity?quantity:parseInt(currentPage)+1 %>">&gt;</a></li>
+									<li><a href="?page=<%= currentPage==quantity?quantity:parseInt(currentPage)+1 %>" data-href="&page=<%= currentPage==quantity?quantity:parseInt(currentPage)+1 %>" >&gt;</a></li>
 								</ul>
 							</div>
 						</div>
@@ -146,7 +146,12 @@
 <script src="/js/thang_custom.js"></script>
 <script >
 	document.addEventListener('DOMContentLoaded',()=>{
-		
+		console.log(window.location.href)
+		const linkEl=document.querySelectorAll('.pagination a')
+		console.log(linkEl)
+		linkEl.forEach(item=>{
+			item.href=window.location.href+item.dataset.href
+		})
 	})
 </script>
 </body>

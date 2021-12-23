@@ -10,7 +10,8 @@ const home = async (req, res) => {
       await CourseModel
         .find({}).sort({ updatedAt: -1 })
         .populate('teacherId')
-        .limit(6).skip(page * 6 - 6 || 0)
+        .limit(6)
+        .skip(page * 6 - 6 || 0)
     const quantity = await CourseModel.count()
     const category = await CategoryModel.find({})
     const allTeacher = await UserModel.find({ role: 1 })
@@ -32,6 +33,10 @@ const home = async (req, res) => {
 }
 
 const search = async (req, res) => {
+  let { page } = req.query
+  if (!page) {
+    page = 1
+  }
   let { search, category, teacher, type } = req.query
   let newCategory = []
   let newTeacher = []
@@ -119,7 +124,6 @@ const search = async (req, res) => {
       .populate('teacherId')
       .populate('levelId')
       .populate('categoryId')
-      .limit(6)
     //
     for (const i in allCourse) {
       if (allCourse[i].name.toLowerCase().indexOf(search) !== -1 ||
@@ -128,15 +132,20 @@ const search = async (req, res) => {
         listCourse.push(allCourse[i])
       }
     }
+    const newListCourse = []
+    for (let i = (page - 1) * 6; i < listCourse.length && i < page * 6; i++) {
+      newListCourse.push(listCourse[i])
+    }
+
     console.log(category)
     res.render('course-search', {
-      allCourse: listCourse,
+      allCourse: newListCourse,
       category: categoryList,
       allTeacher: teacherList,
       level: typeList,
       formatTime: helper.formatTime,
       formatMoney: helper.formatMoney,
-      currentPage: 1,
+      currentPage: page,
       quantity: parseInt(listCourse.length / 6) + 1,
       search,
       newCategory: category,
