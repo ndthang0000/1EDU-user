@@ -5,6 +5,7 @@ const { multerMiddleware } = require('../middlewares')
 
 router.get('/me', profileController.home)
 router.post('/me/avatar', multerMiddleware.single('avatar'), profileController.saveImage)
+router.post('/me', profileController.saveProfile)
 router.get('/course', profileController.course)
 
 module.exports = router
