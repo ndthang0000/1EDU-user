@@ -6,6 +6,7 @@ const { multerMiddleware } = require('../middlewares')
 
 // :id belong to course
 router.post('/:id/course/schedule/content/edit', teacherController.scheduleEditContent)
+router.post('/:id/course/schedule/date/edit', teacherController.scheduleEditDate)
 router.get('/:id/course/schedule', teacherController.schedule)
 router.post('/:id/course/schedule', teacherController.createSchedule)
 

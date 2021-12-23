@@ -42,8 +42,9 @@
                                                     class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">
                                                     Bài học #<%= item.seq+1 %></a>
                                                 </h6>
-                                                <div class="start-date"><%= formatTime(item.date)%>
-                                                    <i class="bi bi-calendar-day" style="margin-left: 10px;cursor: pointer;"></i>
+                                                <div class="start-date" style="position: relative;">
+                                                    <input type="date" name="startDate" value="<%= formatTime(item.date) %>" style="border: none;outline: none;cursor: pointer;">
+                                                    <i class="bi bi-clipboard" data-id="<%= item._id %>" style="position: absolute;top: 0px;left: 200px;font-size: 18px;color: blue;display: none;"></i>
                                                 </div>
                                             </div>
                                             <div id="collapse<%= item.seq%>" aria-labelledby="heading<%= item.seq%>" data-parent="#accordionExample" class="collapse">
@@ -94,10 +95,42 @@
 <script>
     document.addEventListener('DOMContentLoaded',()=>{
         const startDateEl=document.querySelectorAll('.start-date')
+        const saveDate=document.querySelectorAll('.bi-clipboard')
+
         const contentEl=document.querySelectorAll('.content-edit')
         const editContent=document.querySelectorAll('.bi-pencil-square')
         const saveContent=document.querySelectorAll('.bi-clipboard-check')
-        
+
+
+        startDateEl.forEach((item,index)=>{
+            item.addEventListener('change',(e)=>{
+                saveDate[index].style.display='block'
+            })
+        })
+        saveDate.forEach((item,index)=>{
+            item.addEventListener('click',(e)=>{
+                let newDate=startDateEl[index].querySelector('input').value
+                fetch(`${window.location.origin}/teacher/${e.target.dataset.id}/course/schedule/date/edit`,{
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                        },
+                    method: "POST",
+                    body: JSON.stringify({newDate:newDate})
+                })
+                .then(res=>res.json())
+                .then(res=>{
+                    console.log(res)
+                    if(res.success){
+                        e.target.style.display='none'
+                    }
+                    else{
+                        e.target.innerText='Ngày không hợp lệ '
+                    }
+                })
+            })
+        })
+
         editContent.forEach((item,index)=>{
             item.addEventListener('click',(e)=>{
                 e.target.style.display='none'
