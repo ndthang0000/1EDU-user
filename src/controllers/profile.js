@@ -19,9 +19,15 @@ const course = async (req, res) => {
   const allCourse = await StudentCourseModel.find({ studentId: req.user._id }).populate('courseId').sort({ createdAt: -1 })
   res.render('profile-course', { allCourse })
 }
-
+const saveProfile = async (req, res) => {
+  console.log(req.body)
+  const user = await UserModel.findOneAndUpdate({ _id: req.user._id }, req.body)
+  console.log(user)
+  res.redirect('/profile/me')
+}
 module.exports = {
   home,
   saveImage,
-  course
+  course,
+  saveProfile
 }
