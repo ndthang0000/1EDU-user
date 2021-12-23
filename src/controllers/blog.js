@@ -1,7 +1,12 @@
-const { CourseSchedule } = require('../models')
+// const { CourseModel, CategoryModel } = require('../models')
 
 const home = async (req, res) => {
-  await CourseSchedule.deleteMany({ courseId: '61beefa0bbac8f0bef2a3e77' })
+  // const category = await CategoryModel.find({})
+  // category.forEach(async (item) => {
+  //   const quantity = await CourseModel.count({ categoryId: { $in: [item._id] } })
+  //   item.quantity = quantity
+  //   await item.save()
+  // })
   return res.render('blog')
 }
 
