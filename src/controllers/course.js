@@ -137,7 +137,6 @@ const search = async (req, res) => {
       newListCourse.push(listCourse[i])
     }
 
-    console.log(category)
     res.render('course-search', {
       allCourse: newListCourse,
       category: categoryList,
@@ -159,7 +158,8 @@ const search = async (req, res) => {
 const detail = async (req, res) => {
   const { slug } = req.params
   const course = await CourseModel.findOne({ slug: slug }).populate('categoryId')
-  res.render('course-detail', { course, formatTime: helper.formatTime, formatMoney: helper.formatMoney, newLine: helper.newLine })
+  const category = await CategoryModel.find({})
+  res.render('course-detail', { course, category, formatTime: helper.formatTime, formatMoney: helper.formatMoney, newLine: helper.newLine })
 }
 const getArray = async (req, res) => {
   const { cart } = req.body

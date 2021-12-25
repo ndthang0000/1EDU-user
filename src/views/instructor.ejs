@@ -23,13 +23,13 @@
     <div class="container">
         <div class="row">
             <% allTeacher.forEach(function(teacher) { %>
-            <div class="col-md-6 col-lg-4 ftco-animate d-flex align-items-stretch">
-                <div class="staff">
+            <div class="col-md-4 col-lg-3  d-flex align-items-stretch">
+                <div class="staff" style="width: 100%;">
                     <div class="img-wrap d-flex align-items-stretch">
-                        <div class="img align-self-stretch" style="background-image: url(<%= teacher.avatar %>);"></div>
+                        <div class="img align-self-stretch" style="background-image: url(<%= teacher.avatar %>);width:100% ;"></div>
                     </div>
                     <div class="text pt-3">
-                        <h3><a href="instructor-details.html"><%= teacher.name %></a></h3>
+                        <h3><a href="instructor-details.html" style="width: 100%;"><%= teacher.name %></a></h3>
                         <span class="position mb-2">Tuổi : <%= teacher.age %></span>
                         <div class="faded">
                             <p><%= teacher.information %></p>
@@ -64,7 +64,7 @@
 </section>
 
 <input type="hidden" name="userId" value="<%= user._id%>">
-<%- include('./partials/footer'); -%>
+<%- include('./partials/footer',{category:category}); -%>
 
 
 
