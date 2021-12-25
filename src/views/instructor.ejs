@@ -32,7 +32,7 @@
                         <h3><a href="instructor-details.html" style="width: 100%;"><%= teacher.name %></a></h3>
                         <span class="position mb-2">Tuổi : <%= teacher.age %></span>
                         <div class="faded">
-                            <p><%= teacher.information %></p>
+                            <p><%- newLine(teacher.information) %></p>
                             <ul class="ftco-social text-center">
                                 <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
                                 <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>

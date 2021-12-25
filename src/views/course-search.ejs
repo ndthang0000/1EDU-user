@@ -146,11 +146,12 @@
 <script src="/js/thang_custom.js"></script>
 <script >
 	document.addEventListener('DOMContentLoaded',()=>{
-		console.log(window.location.href)
 		const linkEl=document.querySelectorAll('.pagination a')
-		console.log(linkEl)
 		linkEl.forEach(item=>{
 			item.href=window.location.href+item.dataset.href
+			if(window.location.href.includes('&page')){
+				item.href=window.location.href.split('&page')[0]+item.dataset.href
+			}
 		})
 	})
 </script>

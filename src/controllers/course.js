@@ -145,7 +145,7 @@ const search = async (req, res) => {
       formatTime: helper.formatTime,
       formatMoney: helper.formatMoney,
       currentPage: page,
-      quantity: parseInt(listCourse.length / 6) + 1,
+      quantity: parseInt((listCourse.length - 1) / 6) + 1,
       search,
       newCategory: category,
       newTeacher: teacher,
