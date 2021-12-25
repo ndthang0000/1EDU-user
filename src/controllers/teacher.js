@@ -4,7 +4,8 @@ const { helper } = require('../helpers/')
 const home = async (req, res) => {
   const { id } = req.params
   const allCourse = await CourseModel.find({ teacherId: id })
-  res.render('teacher', { allCourse, formatMoney: helper.formatMoney, formatTime: helper.formatTime })
+  const category = await CategoryModel.find({})
+  res.render('teacher', { allCourse, formatMoney: helper.formatMoney, formatTime: helper.formatTime, category })
 }
 
 const create = async (req, res) => {
@@ -24,7 +25,8 @@ const editCourse = async (req, res) => {
 const detailCourse = async (req, res) => {
   const { id, slug } = req.params
   const course = await CourseModel.findOne({ teacherId: id, slug: slug })
-  res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
+  const category = await CategoryModel.find({})
+  res.render('teacher-course-detail', { course, category, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
 }
 
 const saveCreate = async (req, res) => {
@@ -55,8 +57,8 @@ const saveCreate = async (req, res) => {
     teacherId: req.params.id
   })
   await newCourse.save()
-
-  res.render('teacher-course-detail', { course: newCourse, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
+  const categoryy = await CategoryModel.find({})
+  res.render('teacher-course-detail', { course: newCourse, category: categoryy, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
 }
 
 const saveEditCourse = async (req, res) => {
@@ -94,10 +96,10 @@ const saveEditCourse = async (req, res) => {
   res.render('teacher-course-detail', { course, formatTime: helper.formatTime, newLine: helper.newLine, formatMoney: helper.formatMoney })
 }
 const schedule = async (req, res) => {
-  console.log(req.body)
+  const category = await CategoryModel.find({})
   const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
   const course = await CourseModel.findById(req.params.id)
-  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTimeType2, newLinee: helper.newLinee })
+  res.render('teacher-course-schedule', { allSchedule, course, category, formatTime: helper.formatTimeType2, newLinee: helper.newLinee })
 }
 const createSchedule = async (req, res) => {
   for (let i = 0; i < req.body.number; i++) {
@@ -109,7 +111,8 @@ const createSchedule = async (req, res) => {
   }
   const allSchedule = await CourseSchedule.find({ courseId: req.params.id })
   const course = await CourseModel.findById(req.params.id)
-  res.render('teacher-course-schedule', { allSchedule, course, formatTime: helper.formatTimeType2, newLinee: helper.newLinee })
+  const category = await CategoryModel.find({})
+  res.render('teacher-course-schedule', { allSchedule, category, course, formatTime: helper.formatTimeType2, newLinee: helper.newLinee })
 }
 const scheduleEditContent = async (req, res) => {
   try {

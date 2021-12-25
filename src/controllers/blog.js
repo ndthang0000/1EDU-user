@@ -1,4 +1,4 @@
-// const { CourseModel, CategoryModel } = require('../models')
+const { CategoryModel } = require('../models')
 
 const home = async (req, res) => {
   // const category = await CategoryModel.find({})
@@ -7,7 +7,8 @@ const home = async (req, res) => {
   //   item.quantity = quantity
   //   await item.save()
   // })
-  return res.render('blog')
+  const category = await CategoryModel.find({})
+  return res.render('blog', { category })
 }
 
 module.exports = {

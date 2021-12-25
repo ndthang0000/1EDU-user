@@ -1,12 +1,13 @@
-const { CartModel, StudentCourseModel } = require('../models')
+const { CartModel, StudentCourseModel, CategoryModel } = require('../models')
 const { helper } = require('../helpers')
 const home = async (req, res) => {
   if (req.user) {
+    const category = await CategoryModel.find({})
     const allCart = await CartModel.find({ studentId: req.user._id }).populate('courseId')
-    return res.render('cart', { allCart, formatMoney: helper.formatMoney, sumCart: helper.sumCart, sumCartDiscount: helper.sumCartDiscount })
+    return res.render('cart', { allCart, category, formatMoney: helper.formatMoney, sumCart: helper.sumCart, sumCartDiscount: helper.sumCartDiscount })
   }
   console.log('vo day')
-  return res.render('cart', { allCart: [] })
+  return res.render('cart', { allCart: [], category: [] })
 }
 const cart = async (req, res) => {
   console.log(req.params)

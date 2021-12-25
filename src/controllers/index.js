@@ -1,5 +1,4 @@
 const blogController = require('./blog')
-const authController = require('./auth')
 const contactController = require('./contact')
 const homeController = require('./home')
 const instructorController = require('./instructor')
@@ -11,7 +10,6 @@ const profileController = require('./profile')
 
 module.exports = {
   blogController,
-  authController,
   courseController,
   instructorController,
   homeController,
