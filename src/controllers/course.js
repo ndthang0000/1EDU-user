@@ -159,7 +159,13 @@ const detail = async (req, res) => {
   const { slug } = req.params
   const course = await CourseModel.findOne({ slug: slug }).populate('categoryId')
   const category = await CategoryModel.find({})
-  res.render('course-detail', { course, category, formatTime: helper.formatTime, formatMoney: helper.formatMoney, newLine: helper.newLine })
+  res.render('course-detail', {
+    course,
+    category,
+    formatTime: helper.formatTime,
+    formatMoney: helper.formatMoney,
+    newLine: helper.newLine
+  })
 }
 const getArray = async (req, res) => {
   const { cart } = req.body
