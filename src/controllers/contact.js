@@ -1,7 +1,10 @@
-const { UserModel } = require('../models')
+const { UserModel, CategoryModel } = require('../models')
 
 const home = async (req, res) => {
-  return res.render('contact')
+  const category = await CategoryModel.find({})
+  return res.render('contact', {
+    category
+  })
 }
 const signInTeacher = async (req, res) => {
   try {
