@@ -22,7 +22,7 @@ const add = async (req, res) => {
     return res.status(400).json({ success: false, message: 'Khóa học đã tồn tại trong giỏ hàng' })
   }
   if (joinCart) {
-    return res.status(400).json({ success: false, message: 'Bạn đã đăng ký khóa học này' })
+    return res.status(400).json({ success: false, message: 'Bạn đã học khóa học này rồi' })
   }
   const newCart = new CartModel({
     courseId,
